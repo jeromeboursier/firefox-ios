@@ -6,8 +6,12 @@
 #include "Release.xcconfig"
 
 MOZ_BUNDLE_DISPLAY_NAME = Qwant
-MOZ_BUNDLE_ID = org.qwant.ios.qwant
+MOZ_BUNDLE_ID = com.qwant.mobile
 CODE_SIGN_ENTITLEMENTS = Client/Entitlements/FirefoxApplication.entitlements
 OTHER_SWIFT_FLAGS = $(OTHER_SWIFT_FLAGS_common) -DMOZ_CHANNEL_RELEASE
 MOZ_INTERNAL_URL_SCHEME = firefox-internal
+
+
+// MOZ_BUNDLE_VERSION = 2.1.0
+// MOZ_BUNDLE_BUILD_NUMBER = 2
 

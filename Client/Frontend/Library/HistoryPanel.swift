@@ -408,6 +408,8 @@ class HistoryPanel: SiteTableViewController, LibraryPanel {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // First section is for recently closed and always has 1 row.
         guard section > Section.additionalHistoryActions.rawValue else {
+        // First section is for Sync/recently closed and always has 2 rows.
+        // guard section > Section.syncAndRecentlyClosed.rawValue else {
             return 2
         }
 

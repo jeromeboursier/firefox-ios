@@ -60,7 +60,7 @@ class AppSettingsTableViewController: SettingsTableViewController {
             generalSettings.insert(SiriPageSetting(settings: self), at: 5)
         }
 
-        let accountChinaSyncSetting: [Setting]
+        /* let accountChinaSyncSetting: [Setting]
         if !AppInfo.isChinaEdition {
             accountChinaSyncSetting = []
         } else {
@@ -68,7 +68,8 @@ class AppSettingsTableViewController: SettingsTableViewController {
                 // Show China sync service setting:
                 ChinaSyncServiceSetting(settings: self)
             ]
-        }
+        } */
+
         // There is nothing to show in the Customize section if we don't include the compact tab layout
         // setting on iPad. When more options are added that work on both device types, this logic can
         // be changed.
@@ -82,7 +83,7 @@ class AppSettingsTableViewController: SettingsTableViewController {
                         statusText: Strings.SettingsShowLinkPreviewsStatus)
         ]
 
-        let accountSectionTitle = NSAttributedString(string: Strings.FxAFirefoxAccount)
+        /* let accountSectionTitle = NSAttributedString(string: Strings.FxAFirefoxAccount)
 
         let footerText = !profile.hasAccount() ? NSAttributedString(string: Strings.FxASyncUsageDetails) : nil
         settings += [
@@ -94,6 +95,7 @@ class AppSettingsTableViewController: SettingsTableViewController {
                 AccountStatusSetting(settings: self),
                 SyncNowSetting(settings: self)
             ] + accountChinaSyncSetting )]
+        */
 
         settings += [ SettingSection(title: NSAttributedString(string: Strings.SettingsGeneralSectionTitle), children: generalSettings)]
 

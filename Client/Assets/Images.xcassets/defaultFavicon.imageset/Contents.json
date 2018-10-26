@@ -1,18 +1,18 @@
 {
   "images" : [
     {
-      "filename" : "globe_1x.png",
       "idiom" : "universal",
+      "filename" : "icon-ios-v4-20.png",
       "scale" : "1x"
     },
     {
-      "filename" : "globe_2x.png",
       "idiom" : "universal",
+      "filename" : "icon-ios-v4-40.png",
       "scale" : "2x"
     },
     {
-      "filename" : "globe_3x.png",
       "idiom" : "universal",
+      "filename" : "icon-ios-v4-60.png",
       "scale" : "3x"
     }
   ],

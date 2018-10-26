@@ -11,7 +11,7 @@
 "OK" = "OK";
 
 /* Title of the confirmation dialog shown when a user tries to clear history that's synced to another device. */
-"Remove history from your Firefox Account?" = "Chronik aus Ihrem Firefox-Konto entfernen?";
+"Remove history from your Firefox Account?" = "Chronik aus Ihrem Qwant-Konto entfernen?";
 
 /* Description of the confirmation dialog shown when a user tries to clear history that's synced to another device. */
 "This action will clear all of your private data, including history from your synced devices." = "Diese Aktion löscht Ihre persönlichen Daten, einschließlich Chronik von Ihren synchronisierten Geräten.";

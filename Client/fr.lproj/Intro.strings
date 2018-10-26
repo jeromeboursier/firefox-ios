@@ -8,7 +8,7 @@
 "Intro.Slides.Button.SignUp" = "Créer un compte";
 
 /* Description for the 'Mail' panel in the First Run tour. */
-"Intro.Slides.Mail.Description" = "Utilisez n’importe quelle application de courrier électronique (et pas uniquement Mail) avec Firefox.";
+"Intro.Slides.Mail.Description" = "Utilisez n’importe quelle application de courrier électronique (et pas uniquement Mail) avec Qwant.";
 
 /* Title for the fourth panel 'Mail' in the First Run tour. */
 "Intro.Slides.Mail.Title" = "Plus de choix pour vos courriels";
@@ -35,7 +35,7 @@
 "Intro.Slides.Welcome.Description.v2" = "Rapide, confidentiel et à vos côtés.";
 
 /* Title for the first panel 'Welcome' in the First Run tour. */
-"Intro.Slides.Welcome.Title.v2" = "Bienvenue dans Firefox";
+"Intro.Slides.Welcome.Title.v2" = "Bienvenue dans Qwant";
 
 /* See http://mzl.la/1T8gxwo */
 "Start Browsing" = "Commencer la navigation";
@@ -43,3 +43,10 @@
 /* The button that opens the sign in page for sync. See http://mzl.la/1T8gxwo */
 "Turn on Sync…" = "Activer Sync…";
 
+
+"Intro.Slides.Welcome2.Title" = "Bienvenue sur Qwant mobile";
+"Intro.Slides.Welcome2.Description" = "Avec Qwant mobile, naviguez rapidement sur le Web et profitez du moteur de recherche qui respecte votre vie privée";
+"Intro.Slides.Privacy.Title" = "Votre vie reste privée";
+"Intro.Slides.Privacy.Description" = "Qwant ne regarde ni les sites que vous visitez, ni les recherches que vous faites. Il lutte contre le tracking publicitaire et reste neutre";
+"Intro.Slides.Efficiency.Title" = "Des recherches rapides et efficaces";
+"Intro.Slides.Efficiency.Description" = "Qwant délivre les meilleurs résultats instantanément. Actu, musique, social, vidéos… recherchez tout, en toute liberté";

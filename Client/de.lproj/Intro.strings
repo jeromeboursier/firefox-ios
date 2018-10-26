@@ -35,7 +35,7 @@
 "Intro.Slides.Welcome.Description.v2" = "Schnell, privat und auf Ihrer Seite.";
 
 /* Title for the first panel 'Welcome' in the First Run tour. */
-"Intro.Slides.Welcome.Title.v2" = "Willkommen bei Firefox";
+"Intro.Slides.Welcome.Title.v2" = "Willkommen bei Qwant";
 
 /* See http://mzl.la/1T8gxwo */
 "Start Browsing" = "Lossurfen";
@@ -43,3 +43,10 @@
 /* The button that opens the sign in page for sync. See http://mzl.la/1T8gxwo */
 "Turn on Sync…" = "Sync aktivieren…";
 
+
+"Intro.Slides.Welcome2.Title" = "Willkommen bei Qwant Mobil";
+"Intro.Slides.Welcome2.Description" = "Mit Qwant Mobil durchsuchen Sie das Web effizient mit absolutem Datenschutz.";
+"Intro.Slides.Privacy.Title" = "Ihr Privatleben bleibt privat";
+"Intro.Slides.Privacy.Description" = "Qwant möchte weder Ihre Suchabläufe noch die von Ihnen besuchten Websites sehen. Wir sammeln Ihre Daten nicht und verkaufen sie auch nicht. Wir widersetzen uns klar gegen Ad-Tracking.";
+"Intro.Slides.Efficiency.Title" = "Erleben Sie schnelle und effiziente Suchabläufe";
+"Intro.Slides.Efficiency.Description" = "Qwant vermittelt Ihnen die besten Ergebnisse sofort und absolut neutral. Nachrichten, Musik, soziale Netzwerke oder Videos: Sie können alles in absoluter Freiheit suchen.";

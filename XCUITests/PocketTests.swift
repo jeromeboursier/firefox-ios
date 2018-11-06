@@ -17,14 +17,8 @@ class PocketTest: BaseTestCase {
         } else {
             XCTAssertEqual(numPocketStories, 2)
         }
-        // Tap on the first Pocket element
-        app.collectionViews.containing(.cell, identifier:"TopSitesCell").children(matching: .cell).element(boundBy: 1).tap()
-        waitUntilPageLoad()
-        // The url textField is not empty
-        XCTAssertNotEqual(app.textFields["url"].value as! String, "", "The url textField is empty")
-    }
 
-    func testDisablePocket() {
+        // Disable Pocked
         navigator.performAction(Action.TogglePocketInNewTab)
         navigator.goto(NewTabScreen)
         waitforNoExistence(app.staticTexts["Recommended by Pocket"])
@@ -32,6 +26,12 @@ class PocketTest: BaseTestCase {
         navigator.performAction(Action.TogglePocketInNewTab)
         navigator.goto(NewTabScreen)
         waitforExistence(app.staticTexts["Recommended by Pocket"])
+
+        // Tap on the first Pocket element
+        app.collectionViews.containing(.cell, identifier:"TopSitesCell").children(matching: .cell).element(boundBy: 1).tap()
+        waitUntilPageLoad()
+        // The url textField is not empty
+        XCTAssertNotEqual(app.textFields["url"].value as! String, "", "The url textField is empty")
     }
 
     func testTapOnMore() {
@@ -41,7 +41,8 @@ class PocketTest: BaseTestCase {
         app.buttons["More"].tap()
         waitUntilPageLoad()
         navigator.nowAt(BrowserTab)
-        waitforExistence(app.buttons["Reader View"], timeout: 10)
-        waitForValueContains(app.textFields["url"], value: "getpocket")
+        waitforExistence(app.textFields["url"], timeout: 15)
+        let value = app.textFields["url"].value as! String
+        XCTAssertEqual(value, "getpocket.com/explore/trending?src=ff_ios&cdn=0")
     }
 }

@@ -1056,7 +1056,7 @@ class HomeSetting: Setting {
     }
 }
 
-@available(iOS 12.0, *)
+/* @available(iOS 12.0, *)
 class SiriPageSetting: Setting {
     let profile: Profile
 
@@ -1079,7 +1079,7 @@ class SiriPageSetting: Setting {
     override var hidden: Bool {
         return true
     }
-}
+} */
 
 class OpenWithSetting: Setting {
     let profile: Profile

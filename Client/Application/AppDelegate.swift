@@ -518,10 +518,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIViewControllerRestorati
             let query = url.getQuery()
 
             // Check for fxa sign-in code and launch the login screen directly
-            if query["signin"] != nil {
+            /* if query["signin"] != nil {
                 // bvc.launchFxAFromDeeplinkURL(url) // Was using Adjust. Consider hooking up again when replacement system in-place.
                 return true
-            }
+            } */
 
             // Per Adjust documenation, https://docs.adjust.com/en/universal-links/#running-campaigns-through-universal-links,
             // it is recommended that links contain the `deep_link` query parameter. This link will also

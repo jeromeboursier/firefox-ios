@@ -2166,6 +2166,22 @@ extension BrowserViewController {
                     let fxaParams = FxALaunchParams(query: ["entrypoint": "firstrun"])
                     self.presentSignInViewController(fxaParams, flowType: flow, referringPage: .onboarding)
                 }
+
+    /* func launchFxAFromDeeplinkURL(_ url: URL) {
+        self.profile.prefs.removeObjectForKey("AdjustDeeplinkKey")
+        var query = url.getQuery()
+        query["entrypoint"] = "adjust_deepklink_ios"
+        let fxaParams: FxALaunchParams
+        fxaParams = FxALaunchParams(query: query)
+        self.presentSignInViewController(fxaParams)
+    } */
+
+    /* func introViewControllerDidFinish(_ introViewController: IntroViewController, showLoginFlow: FxALoginFlow?) {
+        self.profile.prefs.setInt(1, forKey: PrefsKeys.IntroSeen)
+
+        introViewController.dismiss(animated: true) {
+            if self.navigationController?.viewControllers.count ?? 0 > 1 {
+                _ = self.navigationController?.popToRootViewController(animated: true) */
             }
         }
         self.introVCPresentHelper(introViewController: introViewController)

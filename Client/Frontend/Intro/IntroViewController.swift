@@ -23,9 +23,13 @@ class IntroViewController: UIViewController {
 
     let imagePage1 = UIImageView()
     let imagePage2 = UIImageView()
+    let imagePage3 = UIImageView()
     let subtitlePage1 = UILabel()
     let subtitlePage2 = UILabel()
-    let heading = UILabel()
+    let subtitlePage3 = UILabel()
+    let heading1 = UILabel()
+    let heading2 = UILabel()
+    let heading3 = UILabel()
     let nextButton = UIButton()
     let startBrowsingButton = UIButton()
 
@@ -71,7 +75,7 @@ class IntroViewController: UIViewController {
 
         let imageHolder = UIView()
         main2panel.addArrangedSubview(imageHolder)
-        [imagePage1, imagePage2].forEach {
+        [imagePage1, imagePage2, imagePage3].forEach {
             imageHolder.addSubview($0)
             $0.snp.makeConstraints { make in
                 make.edges.equalToSuperview()
@@ -81,35 +85,47 @@ class IntroViewController: UIViewController {
         let bottomHolder = UIView()
         main2panel.addArrangedSubview(bottomHolder)
 
-        imagePage1.image = UIImage(named: "tour-Welcome")
+        imagePage1.image = UIImage(named: "tour-Welcome2")
         imagePage1.contentMode = .center
 
-        imagePage2.image = UIImage(named: "tour-Sync")
+        imagePage2.image = UIImage(named: "tour-Privacy")
         imagePage2.isHidden = true
         imagePage2.contentMode = .center
+        
+        imagePage3.image = UIImage(named: "tour-Efficiency")
+        imagePage3.isHidden = true
+        imagePage3.contentMode = .center
 
-        let signUp = UIButton()
-        let signIn = UIButton()
-
-        [heading, subtitlePage1, subtitlePage2, signUp, signIn, nextButton, startBrowsingButton].forEach {
+        [heading1, heading2, heading3, subtitlePage1, subtitlePage2, subtitlePage3, nextButton, startBrowsingButton].forEach {
             bottomHolder.addSubview($0)
         }
 
-        heading.text = Strings.CardTitleWelcome
-        heading.font = UIFont.systemFont(ofSize: 32, weight: .bold)
-        heading.adjustsFontSizeToFitWidth = true
-        heading.textAlignment = .center
-        heading.snp.makeConstraints { make in
-            make.left.right.equalToSuperview().inset(10)
-            make.top.equalToSuperview()
+        heading1.text = Strings.CardTitleWelcome2
+        heading2.text = Strings.CardTitlePrivacy
+        heading2.isHidden = true
+        heading3.text = Strings.CardTitleEfficiency
+        heading3.isHidden = true
+        let headingTab = [heading1, heading2, heading3]
+        headingTab.forEach {
+            $0.font = UIFont.systemFont(ofSize: 32, weight: .bold)
+            $0.adjustsFontSizeToFitWidth = true
+            $0.textAlignment = .center
+            $0.snp.makeConstraints { make in
+                make.left.right.equalToSuperview().inset(10)
+                make.top.equalToSuperview()
+            }
         }
 
-        subtitlePage1.text = Strings.CardTextWelcome
-        subtitlePage2.text = Strings.CardTextSync
+        subtitlePage1.text = Strings.CardTextWelcome2
+        subtitlePage2.text = Strings.CardTextPrivacy
         subtitlePage2.isHidden = true
-        subtitlePage1.numberOfLines = 2
+        subtitlePage3.text = Strings.CardTextEfficiency
+        subtitlePage3.isHidden = true
+        subtitlePage1.numberOfLines = 3
         subtitlePage2.numberOfLines = 3
-        [subtitlePage1, subtitlePage2].forEach {
+        subtitlePage3.numberOfLines = 3 // TODO adjust line numbers
+        var i = 0
+        [subtitlePage1, subtitlePage2, subtitlePage3].forEach {
             $0.textAlignment = .center
             $0.adjustsFontSizeToFitWidth = true
             // Shrink the font for the smallest screen size
@@ -117,42 +133,23 @@ class IntroViewController: UIViewController {
             $0.font = UIFont.systemFont(ofSize: fontSize)
             $0.snp.makeConstraints { make in
                 make.left.right.equalToSuperview().inset(35)
-                make.top.equalTo(heading.snp.bottom)
+                make.top.equalTo(headingTab[i].snp.bottom)
+                // make.topMargin.equalToSuperview().inset(10)
             }
+            i += 1
         }
 
         let buttonEdgeInset = 15
         let buttonHeight = 46
-        let buttonSpacing = 16
         let buttonBlue = UIColor.Photon.Blue50
 
-        [signUp, signIn, nextButton, startBrowsingButton].forEach {
+        // TODO remove sign buttons
+        [nextButton, startBrowsingButton].forEach {
             $0.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .bold)
             $0.layer.cornerRadius = 10
         }
 
-        signUp.backgroundColor = buttonBlue
-        signUp.setTitle(Strings.IntroSignUpButtonTitle, for: .normal)
-        signUp.addTarget(self, action: #selector(showSignUpFlow), for: .touchUpInside)
-        signUp.snp.makeConstraints { make in
-            make.left.right.equalToSuperview().inset(buttonEdgeInset)
-            make.bottom.equalTo(signIn.snp.top).offset(-buttonSpacing)
-            make.height.equalTo(buttonHeight)
-        }
-
-        signIn.backgroundColor = .clear
-        signIn.setTitleColor(buttonBlue, for: .normal)
-        signIn.setTitle(Strings.IntroSignInButtonTitle, for: .normal)
-        signIn.addTarget(self, action: #selector(showEmailLoginFlow), for: .touchUpInside)
-        signIn.layer.borderWidth = 1
-        signIn.layer.borderColor = UIColor.gray.cgColor
-        signIn.snp.makeConstraints { make in
-            make.left.right.equalToSuperview().inset(buttonEdgeInset)
-            make.bottom.equalTo(nextButton.snp.top).offset(-buttonSpacing)
-            make.height.equalTo(buttonHeight)
-        }
-
-        nextButton.setTitle(Strings.IntroNextButtonTitle, for: .normal)
+        nextButton.setTitle(Strings.IntroNextButtonTitle, for: .normal) // TODO string change ?
         nextButton.addTarget(self, action: #selector(nextTapped), for: .touchUpInside)
 
         [nextButton, startBrowsingButton].forEach {
@@ -167,7 +164,7 @@ class IntroViewController: UIViewController {
             }
         }
 
-        startBrowsingButton.setTitle(Strings.StartBrowsingButtonTitle, for: .normal)
+        startBrowsingButton.setTitle(Strings.StartBrowsingButtonTitle, for: .normal) // TODO string change ?
         startBrowsingButton.isHidden = true
         startBrowsingButton.addTarget(self, action: #selector(startBrowsing), for: .touchUpInside)
 
@@ -188,25 +185,40 @@ class IntroViewController: UIViewController {
     }
 
     @objc func nextTapped() {
-        currentPage = 1
+        currentPage += 1
 
-        [imagePage2, startBrowsingButton, subtitlePage2].forEach {
-            $0.alpha = 0
-            $0.isHidden = false
-        }
+        if currentPage == 1 {
+            [heading2, imagePage2, subtitlePage2].forEach {
+                $0.alpha = 0
+                $0.isHidden = false
+            }
 
-        UIView.animate(withDuration: 0.3, animations: {
-            self.imagePage1.alpha = 0
-            self.imagePage2.alpha = 1
+            UIView.animate(withDuration: 0.3, animations: {
+                self.imagePage1.alpha = 0
+                self.imagePage2.alpha = 1
+                self.heading1.alpha = 0
+                self.heading2.alpha = 1
+                self.subtitlePage1.alpha = 0
+                self.subtitlePage2.alpha = 1
+            })
+        } else {
+            [heading3, imagePage3, startBrowsingButton, subtitlePage3].forEach {
+                $0.alpha = 0
+                $0.isHidden = false
+            }
 
-            self.nextButton.alpha = 0
-            self.startBrowsingButton.alpha = 1
-
-            self.heading.alpha = 0
-            self.subtitlePage1.alpha = 0
-            self.subtitlePage2.alpha = 1
-        }) { _ in
-            self.nextButton.isHidden = true
+            UIView.animate(withDuration: 0.3, animations: {
+                self.imagePage2.alpha = 0
+                self.imagePage3.alpha = 1
+                self.nextButton.alpha = 0
+                self.startBrowsingButton.alpha = 1
+                self.heading2.alpha = 0
+                self.heading3.alpha = 1
+                self.subtitlePage2.alpha = 0
+                self.subtitlePage3.alpha = 1
+            }) { _ in
+                self.nextButton.isHidden = true
+            }
         }
     }
 
@@ -216,12 +228,14 @@ class IntroViewController: UIViewController {
         UnifiedTelemetry.recordEvent(category: .action, method: .press, object: .dismissedOnboarding, extras: ["slide-num": currentPage])
     }
 
+    // TODO remove
     @objc func showEmailLoginFlow() {
         delegate?.introViewControllerDidFinish(self, showLoginFlow: .emailFlow)
         LeanPlumClient.shared.track(event: .dismissedOnboardingShowLogin, withParameters: ["dismissedOnSlide": String(currentPage)])
         UnifiedTelemetry.recordEvent(category: .action, method: .press, object: .dismissedOnboardingEmailLogin, extras: ["slide-num": currentPage])
         }
 
+    // TODO remove
     @objc func showSignUpFlow() {
         delegate?.introViewControllerDidFinish(self, showLoginFlow: .signUpFlow)
         LeanPlumClient.shared.track(event: .dismissedOnboardingShowSignUp, withParameters: ["dismissedOnSlide": String(currentPage)])

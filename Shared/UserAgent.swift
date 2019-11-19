@@ -9,7 +9,8 @@ open class UserAgent {
     private static var defaults = UserDefaults(suiteName: AppInfo.sharedContainerIdentifier)!
 
     private static func clientUserAgent(prefix: String) -> String {
-        return "\(prefix)/\(AppInfo.appVersion)b\(AppInfo.buildNumber) (\(DeviceInfo.deviceModel()); iPhone OS \(UIDevice.current.systemVersion)) (\(AppInfo.displayName))"
+        return ""
+        // return "\(prefix)/\(AppInfo.appVersion)b\(AppInfo.buildNumber) (\(DeviceInfo.deviceModel()); iPhone OS \(UIDevice.current.systemVersion)) (\(AppInfo.displayName))"
     }
 
     public static var syncUserAgent: String {
@@ -31,11 +32,12 @@ open class UserAgent {
     public static func defaultUserAgent() -> String {
         // As of iOS 13 using a hidden webview method does not return the correct UA on
         // iPad (it returns mobile UA). We should consider that method no longer reliable.
-        if UIDevice.current.userInterfaceIdiom == .pad {
+        /* if UIDevice.current.userInterfaceIdiom == .pad {
             return desktopUserAgent()
         } else {
             return mobileUserAgent()
-        }
+        } */
+        return mobileUserAgent()
     }
 
     public static func isDesktop(ua: String) -> Bool {
@@ -46,7 +48,8 @@ open class UserAgent {
     }
 
     public static func mobileUserAgent() -> String {
-        return "Mozilla/5.0 (iPhone; CPU iPhone OS 13_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) FxiOS/\(AppInfo.appVersion) Mobile/15E148 Safari/605.1.15"
+        return "Mozilla/5.0 (iPhone; CPU iPhone OS 13_0 like Mac OS X) AppleWebKit/605 (KHTML, like Gecko) Mobile/15E148 Safari/605 QwantMobile/2.8"
+        // return "Mozilla/5.0 (iPhone; CPU iPhone OS 13_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) FxiOS/\(AppInfo.appVersion) Mobile/15E148 Safari/605.1.15"
     }
 
     public static func oppositeUserAgent() -> String {

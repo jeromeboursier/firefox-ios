@@ -207,7 +207,7 @@ class HistoryPanel: SiteTableViewController, LibraryPanel {
         }
     }
 
-    /* func updateNumberOfSyncedDevices(_ count: Int) {
+    func updateNumberOfSyncedDevices(_ count: Int) {
         if count > 0 {
             syncDetailText = String.localizedStringWithFormat(Strings.SyncedTabsTableViewCellDescription, count)
         } else {

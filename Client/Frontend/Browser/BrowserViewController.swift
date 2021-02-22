@@ -899,13 +899,18 @@ class BrowserViewController: UIViewController {
     }
 
     func addBookmark(url: String, title: String? = nil, favicon: Favicon? = nil) {
+        print("QWANT!!!!!! add bookmark")
+        
+        
         var title = (title ?? "").trimmingCharacters(in: .whitespacesAndNewlines)
         if title.count == 0 {
             title = url
         }
 
         let shareItem = ShareItem(url: url, title: title, favicon: favicon)
-        profile.places.createBookmark(parentGUID: "mobile______", url: shareItem.url, title: shareItem.title)
+        
+        profile.places.createBookmark(parentGUID: BookmarkRoots.MobileFolderGUID, url: shareItem.url, title: shareItem.title)
+        print("QWANT!!!!!! add bookmark ok")
 
         var userData = [QuickActions.TabURLKey: shareItem.url]
         if let title = shareItem.title {

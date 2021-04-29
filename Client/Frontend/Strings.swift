@@ -873,6 +873,7 @@ extension String {
     
     // Quick Action - Small Size Widget - Edit Mode
     public static let QuickActionDescription = NSLocalizedString("TodayWidget.QuickActionDescription", tableName: "Today", value: "Select a Firefox shortcut to add to your Home screen.", comment: "Quick action description when widget enters edit mode")
+    public static let QuickActionTitle = NSLocalizedString("TodayWidget.QuickActionTitle", tableName: "Today", value: "Quick Link Selection", comment: "Quick link action title")
     public static let QuickActionDropDownMenu = NSLocalizedString("TodayWidget.QuickActionDropDownMenu", tableName: "Today", value: "Quick action", comment: "Quick Actions left label text for dropdown menu when widget enters edit mode")
     public static let DropDownMenuItemNewSearch = NSLocalizedString("TodayWidget.DropDownMenuItemNewSearch", tableName: "Today", value: "New Search", comment: "Quick Actions drop down menu item for new search when widget enters edit mode and drop down menu expands")
     public static let DropDownMenuItemNewPrivateSearch = NSLocalizedString("TodayWidget.DropDownMenuItemNewPrivateSearch", tableName: "Today", value: "New Private Search", comment: "Quick Actions drop down menu item for new private search when widget enters edit mode and drop down menu expands")

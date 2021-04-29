@@ -7,7 +7,7 @@ import UIKit
 import SnapKit
 import Shared
 
-class IntroScreenWelcomeView: UIView, CardTheme {
+class IntroScreenPrivacyView: UIView, CardTheme {
     // Private vars
     private var fxTextThemeColour: UIColor {
         // For dark theme we want to show light colours and for light we want to show dark colours
@@ -20,14 +20,14 @@ class IntroScreenWelcomeView: UIView, CardTheme {
     private let screenSize = DeviceInfo.screenSizeOrientationIndependent()
     // Views
     private lazy var titleImageViewPage1: UIImageView = {
-        let imgView = UIImageView(image: UIImage(named: "tour-Welcome2"))
+        let imgView = UIImageView(image: UIImage(named: "tour-Privacy"))
         imgView.contentMode = .center
         imgView.clipsToBounds = true
         return imgView
     }()
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.text = Strings.CardTitleWelcome2
+        label.text = Strings.CardTitlePrivacy
         label.textColor = fxTextThemeColour
         label.font = UIFont.systemFont(ofSize: 32, weight: .bold)
         label.textAlignment = .center
@@ -37,7 +37,7 @@ class IntroScreenWelcomeView: UIView, CardTheme {
     private lazy var subTitleLabelPage1: UILabel = {
         let fontSize: CGFloat = screenSize.width <= 320 ? 16 : 20
         let label = UILabel()
-        label.text = Strings.CardTextWelcome2
+        label.text = Strings.CardTextPrivacy
         label.textColor = fxTextThemeColour
         label.font = UIFont.systemFont(ofSize: fontSize)
         label.textAlignment = .center
@@ -55,32 +55,6 @@ class IntroScreenWelcomeView: UIView, CardTheme {
         }
         return closeButton
     }()
-    /* private lazy var signUpButton: UIButton = {
-        let button = UIButton()
-        button.accessibilityIdentifier = "signUpOnboardingButton"
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .bold)
-        button.layer.cornerRadius = 10
-        button.backgroundColor = UIColor.Photon.Blue50
-        button.setTitle(Strings.IntroSignUpButtonTitle, for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
-        button.setTitleColor(.white, for: .normal)
-        button.titleLabel?.textAlignment = .center
-        return button
-    }()
-    private lazy var signInButton: UIButton = {
-        let button = UIButton()
-        button.accessibilityIdentifier = "signInOnboardingButton"
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .bold)
-        button.layer.cornerRadius = 10
-        button.layer.borderWidth = 1
-        button.layer.borderColor = UIColor.gray.cgColor
-        button.backgroundColor = .clear
-        button.setTitle(Strings.IntroSignInButtonTitle, for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
-        button.setTitleColor(UIColor.Photon.Blue50, for: .normal)
-        button.titleLabel?.textAlignment = .center
-        return button
-    }() */
     private lazy var nextButton: UIButton = {
         let button = UIButton()
         button.setTitle(Strings.IntroNextButtonTitle, for: .normal)
@@ -150,20 +124,7 @@ class IntroScreenWelcomeView: UIView, CardTheme {
         
         let buttonEdgeInset = 15
         let buttonHeight = 46
-        // let buttonSpacing = 16
         
-        /* signUpButton.addTarget(self, action: #selector(showSignUpFlow), for: .touchUpInside)
-        signUpButton.snp.makeConstraints { make in
-            make.left.right.equalToSuperview().inset(buttonEdgeInset)
-            make.bottom.equalTo(signInButton.snp.top).offset(-buttonSpacing)
-            make.height.equalTo(buttonHeight)
-        }
-        signInButton.addTarget(self, action: #selector(showEmailLoginFlow), for: .touchUpInside)
-        signInButton.snp.makeConstraints { make in
-            make.left.right.equalToSuperview().inset(buttonEdgeInset)
-            make.bottom.equalTo(nextButton.snp.top).offset(-buttonSpacing)
-            make.height.equalTo(buttonHeight)
-        } */
         nextButton.addTarget(self, action: #selector(nextAction), for: .touchUpInside)
         nextButton.snp.makeConstraints { make in
             make.left.right.equalToSuperview().inset(buttonEdgeInset)
@@ -188,22 +149,8 @@ class IntroScreenWelcomeView: UIView, CardTheme {
     
     // MARK: Button Actions
     @objc func startBrowsing() {
-        // LeanPlumClient.shared.track(event: .dismissedOnboarding, withParameters: ["dismissedOnSlide": String(currentPage)])
-        // TelemetryWrapper.recordEvent(category: .action, method: .press, object: .dismissedOnboarding, extras: ["slide-num": currentPage])
         closeClosure?()
     }
-
-    /* @objc func showEmailLoginFlow() {
-        LeanPlumClient.shared.track(event: .dismissedOnboardingShowLogin, withParameters: ["dismissedOnSlide": String(currentPage)])
-        TelemetryWrapper.recordEvent(category: .action, method: .press, object: .dismissedOnboardingEmailLogin, extras: ["slide-num": currentPage])
-        signInClosure?()
-    }
-
-    @objc func showSignUpFlow() {
-        LeanPlumClient.shared.track(event: .dismissedOnboardingShowSignUp, withParameters: ["dismissedOnSlide": String(currentPage)])
-        TelemetryWrapper.recordEvent(category: .action, method: .press, object: .dismissedOnboardingSignUp, extras: ["slide-num": currentPage])
-        signUpClosure?()
-    } */
     
     @objc private func nextAction() {
         nextClosure?()

@@ -264,13 +264,13 @@ class BrowserViewController: UIViewController {
             toolbar?.addNewTabButton.isHidden = true
             // This is for showing (+) add tab middle button with A/B test where we need to update both toolbar and url bar when (+) button is enabled.
             // Urlbar already has reader mode state but we still need to refresh it so that if reader mode is available we don't accidently show reload or stop button in url bar
-            if shouldShowNewTabButton {
+            /* if shouldShowNewTabButton {
                 toolbar?.updateMiddleButtonState(.newTab)
                 let state = urlBar.locationView.readerModeState
                 urlBar.updateReaderModeState(state)
-            } else {
+            } else { */
                 toolbar?.updateMiddleButtonState(currentMiddleButtonState ?? .search)
-            }
+            // }
             updateTabCountUsingTabManager(self.tabManager)
         }
 
@@ -642,11 +642,13 @@ class BrowserViewController: UIViewController {
     // upgrade, downgrades are not possible, so we can show the What's New page.
 
     func shouldShowWhatsNew() -> Bool {
-        guard let latestMajorAppVersion = profile.prefs.stringForKey(LatestAppVersionProfileKey)?.components(separatedBy: ".").first else {
+        return false
+        
+        /* guard let latestMajorAppVersion = profile.prefs.stringForKey(LatestAppVersionProfileKey)?.components(separatedBy: ".").first else {
             return false // Clean install, never show What's New
         }
 
-        return latestMajorAppVersion != AppInfo.majorAppVersion && DeviceInfo.hasConnectivity()
+        return latestMajorAppVersion != AppInfo.majorAppVersion && DeviceInfo.hasConnectivity() */
     }
 
     fileprivate func showQueuedAlertIfAvailable() {
@@ -2171,22 +2173,6 @@ extension BrowserViewController {
                     let fxaParams = FxALaunchParams(query: ["entrypoint": "firstrun"])
                     self.presentSignInViewController(fxaParams, flowType: flow, referringPage: .onboarding)
                 }
-
-    /* func launchFxAFromDeeplinkURL(_ url: URL) {
-        self.profile.prefs.removeObjectForKey("AdjustDeeplinkKey")
-        var query = url.getQuery()
-        query["entrypoint"] = "adjust_deepklink_ios"
-        let fxaParams: FxALaunchParams
-        fxaParams = FxALaunchParams(query: query)
-        self.presentSignInViewController(fxaParams)
-    } */
-
-    /* func introViewControllerDidFinish(_ introViewController: IntroViewController, showLoginFlow: FxALoginFlow?) {
-        self.profile.prefs.setInt(1, forKey: PrefsKeys.IntroSeen)
-
-        introViewController.dismiss(animated: true) {
-            if self.navigationController?.viewControllers.count ?? 0 > 1 {
-                _ = self.navigationController?.popToRootViewController(animated: true) */
             }
         }
         self.introVCPresentHelper(introViewController: introViewController)
@@ -2207,6 +2193,15 @@ extension BrowserViewController {
             }
         }
     }
+
+    /* func launchFxAFromDeeplinkURL(_ url: URL) {
+        self.profile.prefs.removeObjectForKey("AdjustDeeplinkKey")
+        var query = url.getQuery()
+        query["entrypoint"] = "adjust_deepklink_ios"
+        let fxaParams: FxALaunchParams
+        fxaParams = FxALaunchParams(query: query)
+        self.presentSignInViewController(fxaParams)
+    } */
 
     /// This function is called to determine if FxA sign in flow or settings page should be shown
     /// - Parameters:

@@ -1065,7 +1065,7 @@ class SiriPageSetting: Setting {
     }
 } */
 
-@available(iOS 14.0, *)
+/* @available(iOS 14.0, *)
 class DefaultBrowserSetting: Setting {
     let profile: Profile
 
@@ -1081,7 +1081,7 @@ class DefaultBrowserSetting: Setting {
         TelemetryWrapper.gleanRecordEvent(category: .action, method: .open, object: .settingsMenuSetAsDefaultBrowser)
         UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!, options: [:])
     }
-}
+} */
 
 class OpenWithSetting: Setting {
     let profile: Profile

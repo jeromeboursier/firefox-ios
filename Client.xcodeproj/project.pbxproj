@@ -274,7 +274,6 @@
 		43446CF02412DDBE00F5C643 /* UpdateCoverSheetViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43446CEF2412DDBE00F5C643 /* UpdateCoverSheetViewModelTests.swift */; };
 		43446CF32412F9FF00F5C643 /* ETPCoverSheetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43446CF22412F9FF00F5C643 /* ETPCoverSheetTests.swift */; };
 		4357697525B733CC0017B210 /* MozillaAppServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBCF403C221CBC9A00B38F28 /* MozillaAppServices.framework */; };
-		4357697625B733CC0017B210 /* MozillaAppServices.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = EBCF403C221CBC9A00B38F28 /* MozillaAppServices.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		435D660323D793DF0046EFA2 /* UpdateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435D660223D793DF0046EFA2 /* UpdateModel.swift */; };
 		435D660523D794B90046EFA2 /* UpdateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435D660423D794B90046EFA2 /* UpdateViewModel.swift */; };
 		435D660723D7962C0046EFA2 /* UpdateCoverSheetTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435D660623D7962C0046EFA2 /* UpdateCoverSheetTableViewCell.swift */; };
@@ -373,6 +372,8 @@
 		8D8251811F4DE67F00780643 /* AdvancedAccountSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8251721F4DE67E00780643 /* AdvancedAccountSettingViewController.swift */; };
 		8DCD3BCD1ED5B7FA00446D38 /* FxADeepLinkingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DCD3BCC1ED5B7FA00446D38 /* FxADeepLinkingTests.swift */; };
 		8EB348E1B02B9E9E24A937B5 /* ClearPrivateData.strings in Resources */ = {isa = PBXBuildFile; fileRef = 58E14A8F991610DB13A9F1E1 /* ClearPrivateData.strings */; };
+		8FC3C13B25E51FA90052F726 /* IntroScreenPrivacyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC3C13A25E51FA90052F726 /* IntroScreenPrivacyView.swift */; };
+		8FC3C15025E523240052F726 /* IntroScreenEfficiencyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC3C14F25E523240052F726 /* IntroScreenEfficiencyView.swift */; };
 		9240466A9EFB40EFB9DCA168 /* Menu.strings in Resources */ = {isa = PBXBuildFile; fileRef = 05014FF0A3822CA5C103E9C9 /* Menu.strings */; };
 		92E64221B8BDE3FE37E6B411 /* FindInPage.strings in Resources */ = {isa = PBXBuildFile; fileRef = AC44428AA48BA072E576E062 /* FindInPage.strings */; };
 		A83E5AB71C1D993D0026D912 /* UIPasteboardExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83E5AB61C1D993D0026D912 /* UIPasteboardExtensions.swift */; };
@@ -1101,7 +1102,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				4357697625B733CC0017B210 /* MozillaAppServices.framework in Copy Frameworks */,
 				C82043C32523DD6A00740B71 /* Sync.framework in Copy Frameworks */,
 				C87703D225223EA5006E38EB /* Shared.framework in Copy Frameworks */,
 			);
@@ -1542,6 +1542,8 @@
 		8D8251721F4DE67E00780643 /* AdvancedAccountSettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdvancedAccountSettingViewController.swift; sourceTree = "<group>"; };
 		8DCD3BCC1ED5B7FA00446D38 /* FxADeepLinkingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FxADeepLinkingTests.swift; sourceTree = "<group>"; };
 		8EA443C384ED6E158CB2DF3C /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/3DTouchActions.strings; sourceTree = "<group>"; };
+		8FC3C13A25E51FA90052F726 /* IntroScreenPrivacyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroScreenPrivacyView.swift; sourceTree = "<group>"; };
+		8FC3C14F25E523240052F726 /* IntroScreenEfficiencyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroScreenEfficiencyView.swift; sourceTree = "<group>"; };
 		91904C82B6C5F235C9D6F648 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Intro.strings; sourceTree = "<group>"; };
 		92584FC29250BCB874BE31D4 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = "fr.lproj/Default Browser.strings"; sourceTree = "<group>"; };
 		929A4582AD250F54C3B31CA7 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Shared.strings; sourceTree = "<group>"; };
@@ -3545,6 +3547,8 @@
 				435D7CC4246209AA0043ACB9 /* IntroViewController.swift */,
 				435D7CC22461EFDD0043ACB9 /* IntroScreenSyncView.swift */,
 				4334145624C6378B001541F3 /* IntroScreenWelcomeView.swift */,
+				8FC3C13A25E51FA90052F726 /* IntroScreenPrivacyView.swift */,
+				8FC3C14F25E523240052F726 /* IntroScreenEfficiencyView.swift */,
 			);
 			path = Intro;
 			sourceTree = "<group>";
@@ -5098,7 +5102,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "rm -rf Carthage/Build/iOS/GCDWebServers.framework/GCDWebUploader.bundle/Contents/Resources/fonts";
+			shellScript = "rm -rf Carthage/Build/iOS/GCDWebServers.framework/GCDWebUploader.bundle/Contents/Resources/fonts\n";
 		};
 		7B604F8F1C494AAA006EEEC3 /* Copy Carthage Dependencies */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -5119,13 +5123,14 @@
 				"$(SRCROOT)/Carthage/Build/iOS/Telemetry.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/SwiftProtobuf.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Leanplum.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/MozillaAppServices.framework",
 			);
 			name = "Copy Carthage Dependencies";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
+			shellScript = "/usr/local/bin/carthage copy-frameworks\n\n\nAPP_PATH=\"${TARGET_BUILD_DIR}/${WRAPPER_NAME}\"\n\n# This script loops through the frameworks embedded in the application and\n# removes unused architectures.\nfind \"$APP_PATH\" -name '*.framework' -type d | while read -r FRAMEWORK\ndo\n    FRAMEWORK_EXECUTABLE_NAME=$(defaults read \"$FRAMEWORK/Info.plist\" CFBundleExecutable)\n    FRAMEWORK_EXECUTABLE_PATH=\"$FRAMEWORK/$FRAMEWORK_EXECUTABLE_NAME\"\n    echo \"Executable is $FRAMEWORK_EXECUTABLE_PATH\"\n\n    EXTRACTED_ARCHS=()\n\n    for ARCH in $ARCHS\n    do\n        echo \"Extracting $ARCH from $FRAMEWORK_EXECUTABLE_NAME\"\n        lipo -extract \"$ARCH\" \"$FRAMEWORK_EXECUTABLE_PATH\" -o \"$FRAMEWORK_EXECUTABLE_PATH-$ARCH\"\n        EXTRACTED_ARCHS+=(\"$FRAMEWORK_EXECUTABLE_PATH-$ARCH\")\n    done\n\n    echo \"Merging extracted architectures: ${ARCHS}\"\n    lipo -o \"$FRAMEWORK_EXECUTABLE_PATH-merged\" -create \"${EXTRACTED_ARCHS[@]}\"\n    rm \"${EXTRACTED_ARCHS[@]}\"\n\n    echo \"Replacing original executable with thinned version\"\n    rm \"$FRAMEWORK_EXECUTABLE_PATH\"\n    mv \"$FRAMEWORK_EXECUTABLE_PATH-merged\" \"$FRAMEWORK_EXECUTABLE_PATH\"\n\ndone\n";
 		};
 		CDF3D3002461D92F00A93748 /* Glean SDK Generator Script */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -5145,7 +5150,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "rm -rf .venv; bash $PWD/Carthage/Build/iOS/MozillaAppServices.framework/sdk_generator.sh -m $SRCROOT/docs -g MozillaAppServices\n";
+			shellScript = "# rm -rf .venv; bash $PWD/Carthage/Build/iOS/MozillaAppServices.framework/sdk_generator.sh -m $SRCROOT/docs -g MozillaAppServices\n\n\nAPP_PATH=\"${TARGET_BUILD_DIR}/${WRAPPER_NAME}\"\n\n# This script loops through the frameworks embedded in the application and\n# removes unused architectures.\nfind \"$APP_PATH\" -name '*.framework' -type d | while read -r FRAMEWORK\ndo\n    FRAMEWORK_EXECUTABLE_NAME=$(defaults read \"$FRAMEWORK/Info.plist\" CFBundleExecutable)\n    FRAMEWORK_EXECUTABLE_PATH=\"$FRAMEWORK/$FRAMEWORK_EXECUTABLE_NAME\"\n    echo \"Executable is $FRAMEWORK_EXECUTABLE_PATH\"\n\n    EXTRACTED_ARCHS=()\n\n    for ARCH in $ARCHS\n    do\n        echo \"Extracting $ARCH from $FRAMEWORK_EXECUTABLE_NAME\"\n        lipo -extract \"$ARCH\" \"$FRAMEWORK_EXECUTABLE_PATH\" -o \"$FRAMEWORK_EXECUTABLE_PATH-$ARCH\"\n        EXTRACTED_ARCHS+=(\"$FRAMEWORK_EXECUTABLE_PATH-$ARCH\")\n    done\n\n    echo \"Merging extracted architectures: ${ARCHS}\"\n    lipo -o \"$FRAMEWORK_EXECUTABLE_PATH-merged\" -create \"${EXTRACTED_ARCHS[@]}\"\n    rm \"${EXTRACTED_ARCHS[@]}\"\n\n    echo \"Replacing original executable with thinned version\"\n    rm \"$FRAMEWORK_EXECUTABLE_PATH\"\n    mv \"$FRAMEWORK_EXECUTABLE_PATH-merged\" \"$FRAMEWORK_EXECUTABLE_PATH\"\n\ndone\n\n";
 		};
 		E4A69F612048AFEA00D9017B /* Copy Carthage Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -5707,6 +5712,7 @@
 				EBFDB790211C83A5005CCA2F /* BrowserViewController+FindInPage.swift in Sources */,
 				EBB89509219398E500EB91A0 /* TabContentBlocker+ContentScript.swift in Sources */,
 				D3BE7B461B054F8600641031 /* TestAppDelegate.swift in Sources */,
+				8FC3C13B25E51FA90052F726 /* IntroScreenPrivacyView.swift in Sources */,
 				3BB50E111D6274CD004B33DF /* FirefoxHomeTopSitesCell.swift in Sources */,
 				048B4C8624A53F3E001B56E8 /* TodayUX.swift in Sources */,
 				1DF4266E251BC46D0086386A /* FaviconFetcher+Non-Bundled.swift in Sources */,
@@ -5788,6 +5794,7 @@
 				CA7FC7D324A6A9B70012F347 /* LoginListDataSourceHelper.swift in Sources */,
 				CA520E7A24913C1B00CCAB48 /* LoginListViewModel.swift in Sources */,
 				E65075521E37F6D1006961AC /* UIViewExtensions.swift in Sources */,
+				8FC3C15025E523240052F726 /* IntroScreenEfficiencyView.swift in Sources */,
 				C8F457A81F1FD75A000CB895 /* BrowserViewController+WebViewDelegates.swift in Sources */,
 				E6927EC01C7B6FB800D03F75 /* ErrorToast.swift in Sources */,
 				D30B101E1AA7F9C600C01CA3 /* LibraryPanels.swift in Sources */,
@@ -6448,8 +6455,10 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "$(inherit)Extensions/Entitlements/Firefox.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = 76Z29F769J;
 				INFOPLIST_FILE = Extensions/Today/Info.plist;
+				MARKETING_VERSION = 3.0.0;
 				OTHER_SWIFT_FLAGS = "-DMOZ_CHANNEL_RELEASE -DMOZ_TARGET_TODAY";
 				PRODUCT_BUNDLE_IDENTIFIER = com.qwant.mobile.Today;
 				PRODUCT_NAME = Today;
@@ -6464,8 +6473,10 @@
 				CODE_SIGN_ENTITLEMENTS = "$(inherit)Extensions/Entitlements/Firefox.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = 76Z29F769J;
 				INFOPLIST_FILE = Extensions/NotificationService/Info.plist;
+				MARKETING_VERSION = 3.0.0;
 				OTHER_SWIFT_FLAGS = "-DMOZ_CHANNEL_RELEASE -DMOZ_TARGET_NOTIFICATIONSERVICE";
 				PRODUCT_BUNDLE_IDENTIFIER = com.qwant.mobile.NotificationService;
 				PROVISIONING_PROFILE_SPECIFIER = "Qwant Firefox Dev NotificationService";
@@ -6499,9 +6510,11 @@
 				CODE_SIGN_ENTITLEMENTS = Extensions/Entitlements/Firefox.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = 76Z29F769J;
 				INFOPLIST_FILE = WidgetKit/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 3.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.qwant.mobile.WidgetKit;
 				PROVISIONING_PROFILE_SPECIFIER = "Qwant Firefox Dev WidgetKit";
 				SKIP_INSTALL = NO;
@@ -6530,12 +6543,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = 76Z29F769J;
 				INFOPLIST_FILE = Client/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 3.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.qwant.mobile;
 				PRODUCT_MODULE_NAME = Client;
 				PRODUCT_NAME = Client;
@@ -6561,8 +6576,10 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "$(inherit)Extensions/Entitlements/Firefox.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = 76Z29F769J;
 				INFOPLIST_FILE = Extensions/ShareTo/Info.plist;
+				MARKETING_VERSION = 3.0.0;
 				OTHER_SWIFT_FLAGS = "-DMOZ_CHANNEL_RELEASE -DMOZ_TARGET_SHARETO";
 				PRODUCT_BUNDLE_IDENTIFIER = com.qwant.mobile.ShareTo;
 				PROVISIONING_PROFILE_SPECIFIER = "Qwant Firefox Dev ShareTo";

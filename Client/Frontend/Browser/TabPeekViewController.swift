@@ -51,12 +51,12 @@ class TabPeekViewController: UIViewController, WKNavigationDelegate {
                     wself.delegate?.tabPeekDidAddBookmark(tab)
                     })
             }
-            if self.hasRemoteClients {
+            /* if self.hasRemoteClients {
                 actions.append(UIPreviewAction(title: Strings.SendToDeviceTitle, style: .default) { [weak self] previewAction, viewController in
                     guard let wself = self, let clientPicker = wself.fxaDevicePicker else { return }
                     wself.delegate?.tabPeekRequestsPresentationOf(clientPicker)
                     })
-            }
+            } */
             // only add the copy URL action if we don't already have 3 items in our list
             // as we are only allowed 4 in total and we always want to display close tab
             if actions.count < 3 {
@@ -87,12 +87,12 @@ class TabPeekViewController: UIViewController, WKNavigationDelegate {
                     wself.delegate?.tabPeekDidAddBookmark(tab)
                     })
             }
-            if self.hasRemoteClients {
+            /* if self.hasRemoteClients {
                 actions.append(UIAction(title: Strings.SendToDeviceTitle, image: UIImage.templateImageNamed("menu-Send"), identifier: nil) { [weak self] _ in
                     guard let wself = self, let clientPicker = wself.fxaDevicePicker else { return }
                     wself.delegate?.tabPeekRequestsPresentationOf(clientPicker)
                     })
-            }
+            } */
             actions.append(UIAction(title: TabPeekViewController.PreviewActionCopyURL, image: UIImage.templateImageNamed("menu-Copy-Link"), identifier: nil) {[weak self] _ in
                 guard let wself = self, let url = wself.tab?.canonicalURL else { return }
                 UIPasteboard.general.url = url

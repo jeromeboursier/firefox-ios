@@ -124,7 +124,7 @@ extension PhotonActionSheetProtocol {
             }
         }
 
-        let sendToDevice = PhotonActionSheetItem(title: Strings.SendToDeviceTitle, iconString: "menu-Send-to-Device") { _, _ in
+        /* let sendToDevice = PhotonActionSheetItem(title: Strings.SendToDeviceTitle, iconString: "menu-Send-to-Device") { _, _ in
             guard let bvc = presentableVC as? PresentableVC & InstructionsViewControllerDelegate & DevicePickerViewControllerDelegate else { return }
             if !self.profile.hasAccount() {
                 let instructionsViewController = InstructionsViewController()
@@ -142,7 +142,7 @@ extension PhotonActionSheetProtocol {
             let navigationController = UINavigationController(rootViewController: devicePickerViewController)
             navigationController.modalPresentationStyle = .formSheet
             bvc.present(navigationController, animated: true, completion: nil)
-        }
+        } */
 
         let sharePage = PhotonActionSheetItem(title: Strings.AppMenuSharePageTitleString, iconString: "action_share") { _, _ in
             guard let url = tab.canonicalURL?.displayURL else { return }
@@ -204,7 +204,7 @@ extension PhotonActionSheetProtocol {
             }
         }
 
-        mainActions.append(contentsOf: [sendToDevice, copyURL])
+        mainActions.append(contentsOf: [/* sendToDevice, */ copyURL])
 
         let pinAction = (isPinned ? removeTopSitesPin : pinToTopSites)
         var commonActions = [toggleDesktopSite, pinAction]

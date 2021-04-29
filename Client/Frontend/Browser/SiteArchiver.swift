@@ -3,12 +3,12 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import Foundation
-import Sentry
 import Shared
 
 // Struct that retrives saved tabs and simple tabs dictionary for WidgetKit
 struct SiteArchiver {
     static func tabsToRestore(tabsStateArchivePath: String?) -> ([SavedTab], [String: SimpleTab]) {
+        print("QWANT - tabsToRestore: " + (tabsStateArchivePath ?? "no path"))
         // Get simple tabs for widgetkit
         let simpleTabsDict = SimpleTab.getSimpleTabs()
         
@@ -18,12 +18,13 @@ struct SiteArchiver {
             return ([SavedTab](), simpleTabsDict)
         }
 
+        print("QWANT - tabsToRestore 2")
+        
         let unarchiver = try NSKeyedUnarchiver(forReadingWith: tabData)
         unarchiver.setClass(SavedTab.self, forClassName: "Client.SavedTab")
         unarchiver.setClass(SessionData.self, forClassName: "Client.SessionData")
         unarchiver.decodingFailurePolicy = .setErrorAndReturn
         guard let tabs = unarchiver.decodeObject(forKey: "tabs") as? [SavedTab] else {
-            Sentry.shared.send( message: "Failed to restore tabs", tag: .tabManager, severity: .error, description: "\(unarchiver.error ??? "nil")")
             SimpleTab.saveSimpleTab(tabs: nil)
             return ([SavedTab](), simpleTabsDict)
         }

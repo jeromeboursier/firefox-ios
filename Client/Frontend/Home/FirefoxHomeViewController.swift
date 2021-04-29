@@ -142,11 +142,11 @@ class FirefoxHomeViewController: UICollectionViewController, HomePanel {
         return customCell
     }()
 
-    lazy var defaultBrowserCard: DefaultBrowserCard = {
+    /* lazy var defaultBrowserCard: DefaultBrowserCard = {
         let card = DefaultBrowserCard()
         card.backgroundColor = UIColor.theme.homePanel.topSitesBackground
         return card
-    }()
+    }() */
 
     var pocketStories: [PocketStory] = []
 
@@ -174,7 +174,7 @@ class FirefoxHomeViewController: UICollectionViewController, HomePanel {
         self.collectionView?.register(ASFooterView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: "Footer")
         collectionView?.keyboardDismissMode = .onDrag
 
-        if #available(iOS 14.0, *), !UserDefaults.standard.bool(forKey: "DidDismissDefaultBrowserCard") {
+        /* if #available(iOS 14.0, *), !UserDefaults.standard.bool(forKey: "DidDismissDefaultBrowserCard") {
             self.view.addSubview(defaultBrowserCard)
             defaultBrowserCard.snp.makeConstraints { make in
                 make.top.equalToSuperview()
@@ -193,7 +193,7 @@ class FirefoxHomeViewController: UICollectionViewController, HomePanel {
                     make.bottom.left.right.equalToSuperview()
                 }
             }
-        }
+        } */
         self.view.backgroundColor = UIColor.theme.homePanel.topSitesBackground
         self.profile.panelDataObservers.activityStream.delegate = self
 
@@ -234,7 +234,7 @@ class FirefoxHomeViewController: UICollectionViewController, HomePanel {
     }
 
     func applyTheme() {
-        defaultBrowserCard.applyTheme()
+        // defaultBrowserCard.applyTheme()
         collectionView?.backgroundColor = UIColor.theme.homePanel.topSitesBackground
         self.view.backgroundColor = UIColor.theme.homePanel.topSitesBackground
         topSiteCell.collectionView.reloadData()

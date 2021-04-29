@@ -16,12 +16,16 @@ struct TabProvider: TimelineProvider {
     }
     
     func getSnapshot(in context: Context, completion: @escaping (OpenTabsEntry) -> Void) {
+        print("QWANT - get snapshot")
+        
         let allOpenTabs = SiteArchiver.tabsToRestore(tabsStateArchivePath: tabsStateArchivePath()).1
 
         let openTabs = allOpenTabs.values.filter {
             !$0.isPrivate
         }
 
+        print("QWANT - get snapshot open tabs count: " + String(openTabs.count))
+        
         let faviconFetchGroup = DispatchGroup()
         
         var tabFaviconDictionary = [String : Image]()

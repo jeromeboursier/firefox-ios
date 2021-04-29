@@ -67,7 +67,7 @@ open class UserAgent {
 
     public static func mobileUserAgent() -> String {
         // return UserAgentBuilder.defaultMobileUserAgent().userAgent()
-        return "Mozilla/5.0 (iPhone; CPU iPhone OS 13_0 like Mac OS X) AppleWebKit/605 (KHTML, like Gecko) Mobile/15E148 Safari/605 QwantMobile/2.8"
+        return "Mozilla/5.0 (iPhone; CPU iPhone OS 13_0 like Mac OS X) AppleWebKit/605 (KHTML, like Gecko) Mobile/15E148 Safari/605 QwantMobile/3.0"
         // return "Mozilla/5.0 (iPhone; CPU iPhone OS 13_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) FxiOS/\(AppInfo.appVersion) Mobile/15E148 Safari/605.1.15"
     }
   

@@ -3,7 +3,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import Foundation
-import Shared
+// import Shared
 
 // Struct that retrives saved tabs and simple tabs dictionary for WidgetKit
 struct SiteArchiver {
@@ -20,7 +20,7 @@ struct SiteArchiver {
 
         print("QWANT - tabsToRestore 2")
         
-        let unarchiver = try NSKeyedUnarchiver(forReadingWith: tabData)
+        let unarchiver = NSKeyedUnarchiver(forReadingWith: tabData)
         unarchiver.setClass(SavedTab.self, forClassName: "Client.SavedTab")
         unarchiver.setClass(SessionData.self, forClassName: "Client.SessionData")
         unarchiver.decodingFailurePolicy = .setErrorAndReturn

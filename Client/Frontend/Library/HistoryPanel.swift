@@ -426,13 +426,10 @@ class HistoryPanel: SiteTableViewController, LibraryPanel {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // new First section is for recently closed and always has 1 row.
-        // guard section > Section.additionalHistoryActions.rawValue else {
-        
-	// old First section is for Sync/recently closed and always has 2 rows.
-        // guard section > Section.syncAndRecentlyClosed.rawValue else {
-        //     return 2
-        // }
+        // First section is for recently closed and always has 1 row.
+        guard section > Section.additionalHistoryActions.rawValue else {
+            return 2
+        }
 
         return groupedSites.numberOfItemsForSection(section - 1)
     }

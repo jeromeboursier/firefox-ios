@@ -41,14 +41,22 @@ extension PhotonActionSheetProtocol {
 
         let nightModeEnabled = NightModeHelper.isActivated(profile.prefs)
         let nightMode = PhotonActionSheetItem(title: Strings.AppMenuNightMode, iconString: "menu-NightMode", isEnabled: nightModeEnabled, accessory: .Switch) { _, _ in
+            
+            print("QWANT_NM: toggle", nightModeEnabled)
             NightModeHelper.toggle(self.profile.prefs, tabManager: self.tabManager)
+            
+            print("QWANT_NM: check state:\n is activated:", NightModeHelper.isActivated(self.profile.prefs),
+                  "\ncurrent theme:", ThemeManager.instance.currentName,
+                  "\nenabled dark theme:", NightModeHelper.hasEnabledDarkTheme(self.profile.prefs))
             // If we've enabled night mode and the theme is normal, enable dark theme
             if NightModeHelper.isActivated(self.profile.prefs), ThemeManager.instance.currentName == .normal {
+                print("QWANT_NM: case 1")
                 ThemeManager.instance.current = DarkTheme()
                 NightModeHelper.setEnabledDarkTheme(self.profile.prefs, darkTheme: true)
             }
             // If we've disabled night mode and dark theme was activated by it then disable dark theme
             if !NightModeHelper.isActivated(self.profile.prefs), NightModeHelper.hasEnabledDarkTheme(self.profile.prefs), ThemeManager.instance.currentName == .dark {
+                print("QWANT_NM: case 2")
                 ThemeManager.instance.current = NormalTheme()
                 NightModeHelper.setEnabledDarkTheme(self.profile.prefs, darkTheme: false)
             }

@@ -17,7 +17,7 @@ class SearchSettingsTableViewController: ThemedTableViewController {
     fileprivate let ItemAddCustomSearch = 2
     fileprivate let NumberOfItemsInSectionDefault = 2
     fileprivate let SectionOrder = 1
-    fileprivate let NumberOfSections = 2
+    fileprivate let NumberOfSections = 1
     fileprivate let IconSize = CGSize(width: OpenSearchEngine.PreferredIconSize, height: OpenSearchEngine.PreferredIconSize)
     fileprivate let SectionHeaderIdentifier = "SectionHeaderIdentifier"
 
@@ -52,8 +52,7 @@ class SearchSettingsTableViewController: ThemedTableViewController {
             self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: Strings.SettingsSearchDoneButton, style: .done, target: self, action: #selector(self.dismissAnimated))
         }
 
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: Strings.SettingsSearchEditButton, style: .plain, target: self,
-                                                                 action: #selector(beginEditing))
+        //navigationItem.rightBarButtonItem = UIBarButtonItem(title: Strings.SettingsSearchEditButton, style: .plain, target: self, action: #selector(beginEditing))
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -96,7 +95,7 @@ class SearchSettingsTableViewController: ThemedTableViewController {
                 // Should not happen.
                 break
             }
-        } else {
+        } /* else {
             // The default engine is not a quick search engine.
             let index = indexPath.item + 1
             if index < model.orderedEngines.count {
@@ -124,7 +123,7 @@ class SearchSettingsTableViewController: ThemedTableViewController {
                 cell.accessibilityIdentifier = "customEngineViewButton"
                 cell.textLabel?.text = Strings.SettingsAddCustomEngine
             }
-        }
+        } */
 
         // So that the seperator line goes all the way to the left edge.
         cell.separatorInset = .zero
@@ -155,7 +154,7 @@ class SearchSettingsTableViewController: ThemedTableViewController {
             searchEnginePicker.delegate = self
             searchEnginePicker.selectedSearchEngineName = model.defaultEngine.shortName
             navigationController?.pushViewController(searchEnginePicker, animated: true)
-        } else if indexPath.item + 1 == model.orderedEngines.count {
+        } /* else if indexPath.item + 1 == model.orderedEngines.count {
             let customSearchEngineForm = CustomSearchViewController()
             customSearchEngineForm.profile = self.profile
             customSearchEngineForm.successCallback = {
@@ -163,7 +162,7 @@ class SearchSettingsTableViewController: ThemedTableViewController {
                 SimpleToast().showAlertWithText(Strings.ThirdPartySearchEngineAdded, bottomContainer: window)
             }
             navigationController?.pushViewController(customSearchEngineForm, animated: true)
-        }
+        } */
         return nil
     }
 

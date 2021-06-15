@@ -406,10 +406,10 @@ extension FirefoxHomeViewController: UICollectionViewDelegateFlowLayout {
                     return view
                 case .libraryShortcuts:
                     view.title = title
-                    view.moreButton.isHidden = false
-                    view.moreButton.setTitle(Strings.AppMenuLibrarySeeAllTitleString, for: .normal)
+                    view.moreButton.isHidden = true
+                    /* view.moreButton.setTitle(Strings.AppMenuLibrarySeeAllTitleString, for: .normal)
                     view.moreButton.addTarget(self, action: #selector(openHistory), for: .touchUpInside)
-                    view.moreButton.accessibilityIdentifier = "libraryMoreButton"
+                    view.moreButton.accessibilityIdentifier = "libraryMoreButton" */
                     view.titleLabel.accessibilityIdentifier = "libraryTitle"
                     return view
             }
@@ -535,7 +535,7 @@ extension FirefoxHomeViewController {
 
     func configureLibraryShortcutsCell(_ cell: UICollectionViewCell, forIndexPath indexPath: IndexPath) -> UICollectionViewCell {
         let libraryCell = cell as! ASLibraryCell
-        let targets = [#selector(openBookmarks), #selector(openReadingList), #selector(openDownloads), #selector(openSyncedTabs)]
+        let targets = [#selector(openBookmarks), #selector(openHistory), #selector(openReadingList), #selector(openDownloads)]
         libraryCell.libraryButtons.map({ $0.button }).zip(targets).forEach { (button, selector) in
             button.removeTarget(nil, action: nil, for: .allEvents)
             button.addTarget(self, action: selector, for: .touchUpInside)
@@ -1142,7 +1142,7 @@ class ASLibraryCell: UICollectionViewCell, Themeable {
             make.edges.equalTo(self)
         }
         
-        [bookmarks, readingList, downloads].forEach { item in
+        [bookmarks, history, readingList, downloads].forEach { item in
             let view = LibraryShortcutView()
             view.button.setImage(item.image, for: .normal)
             view.title.text = item.title

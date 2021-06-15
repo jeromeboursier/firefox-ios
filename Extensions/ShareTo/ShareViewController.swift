@@ -118,11 +118,11 @@ class ShareViewController: UIViewController {
 
         if shareItem?.isUrlType() ?? true {
             makeActionRow(addTo: stackView, label: Strings.ShareOpenInFirefox, imageName: "open-in-firefox", action: #selector(actionOpenInFirefoxNow), hasNavigation: false)
-            makeActionRow(addTo: stackView, label: Strings.ShareLoadInBackground, imageName: "menu-Show-Tabs", action: #selector(actionLoadInBackground), hasNavigation: false)
+            /* makeActionRow(addTo: stackView, label: Strings.ShareLoadInBackground, imageName: "menu-Show-Tabs", action: #selector(actionLoadInBackground), hasNavigation: false)
             makeActionRow(addTo: stackView, label: Strings.ShareBookmarkThisPage, imageName: "AddToBookmarks", action: #selector(actionBookmarkThisPage), hasNavigation: false)
             makeActionRow(addTo: stackView, label: Strings.ShareAddToReadingList, imageName: "AddToReadingList", action: #selector(actionAddToReadingList), hasNavigation: false)
             makeSeparator(addTo: stackView)
-            makeActionRow(addTo: stackView, label: Strings.ShareSendToDevice, imageName: "menu-Send-to-Device", action: #selector(actionSendToDevice), hasNavigation: true)
+            makeActionRow(addTo: stackView, label: Strings.ShareSendToDevice, imageName: "menu-Send-to-Device", action: #selector(actionSendToDevice), hasNavigation: true) */
         } else {
             pageInfoRowUrlLabel?.removeFromSuperview()
             makeActionRow(addTo: stackView, label: Strings.ShareSearchInFirefox, imageName: "quickSearch", action: #selector(actionSearchInFirefox), hasNavigation: false)
@@ -313,18 +313,28 @@ class ShareViewController: UIViewController {
 
 extension ShareViewController {
     @objc func actionLoadInBackground(gesture: UIGestureRecognizer) {
+        
+        print("load in background")
+        
         // To avoid re-rentry from double tap, each action function disables the gesture
         gesture.isEnabled = false
         animateToActionDoneView(withTitle: Strings.ShareLoadInBackgroundDone)
 
         if let shareItem = shareItem, case .shareItem(let item) = shareItem {
+            print("load in background 2")
             let profile = BrowserProfile(localName: "profile")
+            print("load in background 3")
             profile.queue.addToQueue(item).uponQueue(.main) { _ in
+                print("load in background 4")
                 profile._shutdown()
+                print("load in background 5")
             }
+            
+            print("load in background 6")
 
-            addAppExtensionTelemetryEvent(forMethod: "load-in-background")
+            // addAppExtensionTelemetryEvent(forMethod: "load-in-background")
         }
+        print("load in background 7")
 
         finish()
     }
@@ -339,7 +349,7 @@ extension ShareViewController {
             _ = profile.places.createBookmark(parentGUID: BookmarkRoots.MobileFolderGUID, url: item.url, title: item.title).value // Intentionally block thread with database call.
             profile._shutdown()
 
-            addAppExtensionTelemetryEvent(forMethod: "bookmark-this-page")
+            // addAppExtensionTelemetryEvent(forMethod: "bookmark-this-page")
         }
 
         finish()
@@ -355,7 +365,7 @@ extension ShareViewController {
             profile.readingList.createRecordWithURL(item.url, title: item.title ?? "", addedBy: UIDevice.current.name)
             profile._shutdown()
 
-            addAppExtensionTelemetryEvent(forMethod: "add-to-reading-list")
+            // addAppExtensionTelemetryEvent(forMethod: "add-to-reading-list")
         }
 
         finish()
@@ -387,9 +397,9 @@ extension ShareViewController {
        func firefoxUrl(_ url: String) -> String {
             let encoded = url.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.alphanumerics) ?? ""
             if isSearch {
-                return "firefox://open-text?text=\(encoded)"
+                return "qwant://open-text?text=\(encoded)"
             }
-            return "firefox://open-url?url=\(encoded)"
+            return "qwant://open-url?url=\(encoded)"
         }
 
         guard let url = URL(string: firefoxUrl(url)) else { return }

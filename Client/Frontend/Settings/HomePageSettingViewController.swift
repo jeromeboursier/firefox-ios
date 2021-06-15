@@ -27,6 +27,10 @@ class HomePageSettingViewController: SettingsTableViewController {
         self.currentChoice = NewTabAccessors.getHomePage(self.prefs)
         self.hasHomePage = HomeButtonHomePageAccessors.getHomePage(self.prefs) != nil
 
+        if (self.currentChoice.rawValue == "HomePage") { // old version
+            self.currentChoice = NewTabPage.topSites // new version
+        }
+        
         let onFinished = {
             self.prefs.setString(self.currentChoice.rawValue, forKey: NewTabAccessors.HomePrefKey)
             self.tableView.reloadData()
@@ -37,10 +41,14 @@ class HomePageSettingViewController: SettingsTableViewController {
             onFinished()
         })
         let showWebPage = WebPageSetting(prefs: prefs, prefKey: PrefsKeys.HomeButtonHomePageURL, defaultValue: nil, placeholder: Strings.CustomNewPageURL, accessibilityIdentifier: "HomeAsCustomURL", isChecked: {return !showTopSites.isChecked()}, settingDidChange: { (string) in
-            self.currentChoice = NewTabPage.homePage
-            self.prefs.setString(self.currentChoice.rawValue, forKey: NewTabAccessors.HomePrefKey)
-            self.tableView.reloadData()
+            if (string == nil || !(URL(string: string!)?.isWebPage() ?? false)) {
+                self.currentChoice = NewTabPage.topSites
+            } else {
+                self.currentChoice = NewTabPage.homePage
+            }
+            onFinished()
         })
+        
         showWebPage.textField.textAlignment = .natural
 
         let section = SettingSection(title: NSAttributedString(string: Strings.NewTabSectionName), footerTitle: NSAttributedString(string: Strings.NewTabSectionNameFooter), children: [showTopSites, showWebPage])

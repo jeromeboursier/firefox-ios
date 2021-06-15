@@ -297,7 +297,8 @@ class WebPageSetting: StringPrefSetting {
         guard let value = value else {
             return nil
         }
-        return URIFixup.getURL(value)?.absoluteString
+        let r = URIFixup.getURL(value)?.absoluteString
+        return r
     }
 
     override func onConfigureCell(_ cell: UITableViewCell) {
@@ -308,9 +309,10 @@ class WebPageSetting: StringPrefSetting {
 
     static func isURLOrEmpty(_ string: String?) -> Bool {
         guard let string = string, !string.isEmpty else {
-            return true
+            return false
         }
-        return URL(string: string)?.isWebPage() ?? false
+        let result = URL(string: string)?.isWebPage() ?? false
+        return result
     }
 }
 
@@ -379,10 +381,14 @@ class StringSetting: Setting, UITextFieldDelegate {
     }
 
     fileprivate func isValid(_ value: String?) -> Bool {
+        print("QWANT test validity")
         guard let test = settingIsValid else {
+            print("QWANT test validity break")
             return true
         }
-        return test(prepareValidValue(userInput: value))
+        let r = test(prepareValidValue(userInput: value))
+        print("QWANT test result: " + String(r))
+        return r
     }
 
     /// This gives subclasses an opportunity to treat the user input string

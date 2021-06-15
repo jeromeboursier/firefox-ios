@@ -18,11 +18,16 @@ extension PhotonActionSheetProtocol {
         }
 
         let openHomePage = PhotonActionSheetItem(title: Strings.AppMenuOpenHomePageTitleString, iconString: "menu-Home") { _, _ in
-            let page = NewTabAccessors.getHomePage(self.profile.prefs)
+            var page = NewTabAccessors.getHomePage(self.profile.prefs)
+            if (page.rawValue == "HomePage") { // old version
+                page = NewTabPage.topSites // new version
+            }
             if page == .homePage, let homePageURL = HomeButtonHomePageAccessors.getHomePage(self.profile.prefs) {
                 tab.loadRequest(PrivilegedRequest(url: homePageURL) as URLRequest)
             } else if let homePanelURL = page.url {
                 tab.loadRequest(PrivilegedRequest(url: homePanelURL) as URLRequest)
+            } else {
+                tab.loadRequest(URLRequest(url: URL(string: "internal://local/about/home#panel=0")!))
             }
         }
 
@@ -39,28 +44,43 @@ extension PhotonActionSheetProtocol {
 
         items.append(noImageMode)
 
-        let nightModeEnabled = NightModeHelper.isActivated(profile.prefs)
+        // let nightModeEnabled = (ThemeManager.instance.currentName == .dark) || NightModeHelper.isActivated(self.profile.prefs)
+        let nightModeEnabled = NightModeHelper.isActivated(self.profile.prefs)
+        // print("QWANT_NM: night mode enabled", nightModeEnabled)
         let nightMode = PhotonActionSheetItem(title: Strings.AppMenuNightMode, iconString: "menu-NightMode", isEnabled: nightModeEnabled, accessory: .Switch) { _, _ in
             
-            print("QWANT_NM: toggle", nightModeEnabled)
+            // print("QWANT_NM: toggle", nightModeEnabled)
             NightModeHelper.toggle(self.profile.prefs, tabManager: self.tabManager)
+            // ThemeManager.instance.current = nightModeEnabled ? NormalTheme() : DarkTheme()
             
-            print("QWANT_NM: check state:\n is activated:", NightModeHelper.isActivated(self.profile.prefs),
-                  "\ncurrent theme:", ThemeManager.instance.currentName,
-                  "\nenabled dark theme:", NightModeHelper.hasEnabledDarkTheme(self.profile.prefs))
+            // print("QWANT_NM: is activated:", NightModeHelper.isActivated(self.profile.prefs))
+            // print("QWANT_NM: current theme:", ThemeManager.instance.currentName)
+            // print("QWANT_NM: enabled dark theme:", NightModeHelper.hasEnabledDarkTheme(self.profile.prefs))
+            
             // If we've enabled night mode and the theme is normal, enable dark theme
             if NightModeHelper.isActivated(self.profile.prefs), ThemeManager.instance.currentName == .normal {
-                print("QWANT_NM: case 1")
+                // print("QWANT_NM: case 1")
                 ThemeManager.instance.current = DarkTheme()
                 NightModeHelper.setEnabledDarkTheme(self.profile.prefs, darkTheme: true)
             }
             // If we've disabled night mode and dark theme was activated by it then disable dark theme
             if !NightModeHelper.isActivated(self.profile.prefs), NightModeHelper.hasEnabledDarkTheme(self.profile.prefs), ThemeManager.instance.currentName == .dark {
-                print("QWANT_NM: case 2")
+                // print("QWANT_NM: case 2")
                 ThemeManager.instance.current = NormalTheme()
                 NightModeHelper.setEnabledDarkTheme(self.profile.prefs, darkTheme: false)
             }
         }
+        /* let nightModeEnabled = (ThemeManager.instance.currentName == .dark)
+        let nightMode = PhotonActionSheetItem(title: Strings.AppMenuNightMode, iconString: "menu-NightMode", isEnabled: nightModeEnabled, accessory: .Switch) { _, _ in
+            if (ThemeManager.instance.currentName == .dark) {
+                ThemeManager.instance.current = NormalTheme()
+                NightModeHelper.setNightMode(self.profile.prefs, tabManager: self.tabManager, enabled: true)
+            } else {
+                ThemeManager.instance.current = DarkTheme()
+                NightModeHelper.setNightMode(self.profile.prefs, tabManager: self.tabManager, enabled: false)
+            }
+        } */
+        
         items.append(nightMode)
 
         let openSettings = PhotonActionSheetItem(title: Strings.AppMenuSettingsTitleString, iconString: "menu-Settings") { _, _ in

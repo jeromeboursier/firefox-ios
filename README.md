@@ -29,7 +29,7 @@ Building the code
     ```
 1. Clone the repository:
     ```shell
-    git clone https://github.com/mozilla-mobile/firefox-ios
+    git clone -b qwant-3.0-v30 --single-branch https://github.com/mozilla-mobile/firefox-ios
     ```
 1. Pull in the project dependencies:
     ```shell

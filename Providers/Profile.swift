@@ -13,7 +13,6 @@ import Storage
 import Sync
 import XCGLogger
 import SwiftKeychainWrapper
-import SyncTelemetry
 
 // Import these dependencies ONLY for the main `Client` application target.
 #if MOZ_TARGET_CLIENT
@@ -498,11 +497,6 @@ open class BrowserProfile: Profile {
             // an events-only ping now.
             return
         }
-        let sendUsageData = prefs.boolForKey(AppConstants.PrefSendUsageData) ?? true
-        if sendUsageData {
-            SyncPing.fromQueuedEvents(prefs: self.prefs,
-                                      why: .schedule) >>== { SyncTelemetry.send(ping: $0, docType: .sync) }
-        }
     }
 
     func storeTabs(_ tabs: [RemoteTab]) -> Deferred<Maybe<Int>> {
@@ -521,11 +515,6 @@ open class BrowserProfile: Profile {
                     constellation.sendEventToDevice(targetDeviceId: id, e: .sendTab(title: item.title ?? "", url: item.url))
                 }
             }
-            if let json = try? accountManager.gatherTelemetry() {
-                let events = FxATelemetry.parseTelemetry(fromJSONString: json)
-                events.forEach { $0.record(intoPrefs: self.prefs) }
-            }
-            self.sendQueuedSyncEvents()
             deferred.fill(Maybe(success: ()))
         }
         return deferred
@@ -677,17 +666,6 @@ open class BrowserProfile: Profile {
             log.info("Ending all queued syncs.")
 
             syncDisplayState = SyncStatusResolver(engineResults: result.engineResults).resolveResults()
-
-            #if MOZ_TARGET_CLIENT
-                if canSendUsageData() {
-                    SyncPing.from(result: result,
-                                  remoteClientsAndTabs: profile.remoteClientsAndTabs,
-                                  prefs: prefs,
-                                  why: .schedule) >>== { SyncTelemetry.send(ping: $0, docType: .sync) }
-                } else {
-                    log.debug("Profile isn't sending usage data. Not sending sync status event.")
-                }
-            #endif
 
             // Dont notify if we are performing a sync in the background. This prevents more db access from happening
             if !self.backgrounded {

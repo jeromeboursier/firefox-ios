@@ -377,8 +377,6 @@ extension TabLocationView: UIDragInteractionDelegate {
             return []
         }
 
-        TelemetryWrapper.recordEvent(category: .action, method: .drag, object: .locationBar)
-
         let dragItem = UIDragItem(itemProvider: itemProvider)
         return [dragItem]
     }

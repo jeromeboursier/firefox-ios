@@ -9,9 +9,7 @@ import XCGLogger
 import MessageUI
 import SDWebImage
 import SwiftKeychainWrapper
-import SyncTelemetry
 import LocalAuthentication
-import SyncTelemetry
 import Sync
 import CoreSpotlight
 import UserNotifications
@@ -46,7 +44,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIViewControllerRestorati
     var launchOptions: [AnyHashable: Any]?
 
     var receivedURLs = [URL]()
-    var telemetry: TelemetryWrapper?
 
     func application(_ application: UIApplication, willFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         //
@@ -107,8 +104,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIViewControllerRestorati
         Logger.browserLogger.newLogWithDate(logDate)
 
         let profile = getProfile(application)
-
-        telemetry = TelemetryWrapper(profile: profile)
 
         // Set up a web server that serves us static content. Do this early so that it is ready when the UI is presented.
         setUpWebServer(profile)
@@ -227,11 +222,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIViewControllerRestorati
         _ = ChronTabsUserResearch()
         // Leanplum setup
 
-        if let profile = self.profile, LeanPlumClient.shouldEnable(profile: profile) {
-            LeanPlumClient.shared.setup(profile: profile)
-            LeanPlumClient.shared.set(enabled: true)
-        }
-
         if #available(iOS 13.0, *) {
             BGTaskScheduler.shared.register(forTaskWithIdentifier: "org.mozilla.ios.sync.part1", using: DispatchQueue.global()) { task in
                 guard self.profile?.hasSyncableAccount() ?? false else {
@@ -276,11 +266,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIViewControllerRestorati
 
         if let profile = profile, let _ = profile.prefs.boolForKey(PrefsKeys.AppExtensionTelemetryOpenUrl) {
             profile.prefs.removeObjectForKey(PrefsKeys.AppExtensionTelemetryOpenUrl)
-            var object = TelemetryWrapper.EventObject.url
-            if case .text(_) = routerpath {
-                object = .searchText
-            }
-            TelemetryWrapper.recordEvent(category: .appExtensionAction, method: .applicationOpenUrl, object: object)
         }
 
         DispatchQueue.main.async {
@@ -330,8 +315,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIViewControllerRestorati
             quickActions.launchedShortcutItem = nil
         }
 
-        TelemetryWrapper.recordEvent(category: .action, method: .foreground, object: .app)
-
         // Delay these operations until after UIKit/UIApp init is complete
         // - loadQueuedTabs accesses the DB and shows up as a hot path in profiling
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
@@ -375,8 +358,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIViewControllerRestorati
         // Pause file downloads.
         // TODO: iOS 13 needs to iterate all the BVCs.
         BrowserViewController.foregroundBVC().downloadQueue.pauseAll()
-
-        TelemetryWrapper.recordEvent(category: .action, method: .background, object: .app)
 
         let singleShotTimer = DispatchSource.makeTimerSource(queue: DispatchQueue.main)
         // 2 seconds is ample for a localhost request to be completed by GCDWebServer. <500ms is expected on newer devices.

@@ -35,8 +35,6 @@ class SendToDevice: DevicePickerViewControllerDelegate, InstructionsViewControll
         profile.sendItem(item, toDevices: devices).uponQueue(.main) { _ in
             profile._shutdown()
             self.finish()
-
-            addAppExtensionTelemetryEvent(forMethod: "send-to-device")
         }
     }
 

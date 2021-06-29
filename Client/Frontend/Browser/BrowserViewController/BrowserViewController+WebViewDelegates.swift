@@ -122,7 +122,6 @@ extension BrowserViewController: WKUIDelegate {
             let isPrivate = currentTab.isPrivate
             let addTab = { (rURL: URL, isPrivate: Bool) in
                 let tab = self.tabManager.addTab(URLRequest(url: rURL as URL), afterTab: currentTab, isPrivate: isPrivate)
-                LeanPlumClient.shared.track(event: .openedNewTab, withParameters: ["Source": "Long Press Context Menu"])
                 guard !self.topTabsVisible else {
                     return
                 }
@@ -165,7 +164,6 @@ extension BrowserViewController: WKUIDelegate {
             actions.append(UIAction(title: Strings.ContextMenuBookmarkLink, image: UIImage.templateImageNamed("menu-Bookmark"), identifier: UIAction.Identifier("linkContextMenu.bookmarkLink")) { _ in
                 self.addBookmark(url: url.absoluteString, title: elements.title)
                 SimpleToast().showAlertWithText(Strings.AppMenuAddBookmarkConfirmMessage, bottomContainer: self.webViewContainer)
-                TelemetryWrapper.recordEvent(category: .action, method: .add, object: .bookmark, value: .contextMenu)
             })
 
             actions.append(UIAction(title: Strings.ContextMenuDownloadLink, image: UIImage.templateImageNamed("menu-panel-Downloads"), identifier: UIAction.Identifier("linkContextMenu.download")) {_ in
@@ -417,8 +415,6 @@ extension BrowserViewController: WKNavigationDelegate {
                 } else {
                     UIApplication.shared.open(url, options: [:])
                 }
-
-                LeanPlumClient.shared.track(event: .openedMailtoLink)
             }
 
             decisionHandler(.cancel)
@@ -658,22 +654,18 @@ extension BrowserViewController: WKNavigationDelegate {
     func setTabSearchType(_ tab: Tab, webView: WKWebView) {
         let provider = tab.getProviderForUrl()
         let code = SearchPartner.getCode(searchEngine: provider, region: Locale.current.regionCode == "US" ? "US" : "ROW")
-        let telemetry = SearchTelemetry(code, provider: provider)
         
         if shouldSetUrlTypeSearch {
             tab.urlType = .search
             shouldSetUrlTypeSearch = false
-            telemetry.trackSAP()
         } else if let webUrl = webView.url {
             let components = URLComponents(url: webUrl, resolvingAgainstBaseURL: false)!
             let clientValue = components.valueForQuery("client")
             // Check if previous tab type is search
             if (tab.urlType == .search || tab.urlType == .followOnSearch) && clientValue == code {
                 tab.urlType = .followOnSearch
-                telemetry.trackSAPFollowOn()
             } else if provider == .google {
                 tab.urlType = .organicSearch
-                telemetry.trackOrganic()
             } else {
                 tab.urlType = .regular
             }

@@ -454,8 +454,6 @@ extension TabTrayControllerV1: UITextFieldDelegate {
         tabDisplayManager.searchedTabs = filteredTabs
 
         tabDisplayManager.searchTabsAnimated()
-        
-        TelemetryWrapper.recordEvent(category: .action, method: .press, object: .tabSearch)
     }
 
     func clearSearch() {
@@ -521,7 +519,6 @@ extension TabTrayControllerV1 {
         collectionView.layer.removeAllAnimations()
         collectionView.cellForItem(at: IndexPath(row: 0, section: 0))?.layer.removeAllAnimations()
         _ = self.navigationController?.popViewController(animated: true)
-        TelemetryWrapper.recordEvent(category: .action, method: .close, object: .tabTray)
     }
 
 }
@@ -684,7 +681,6 @@ extension TabTrayControllerV1: TabDisplayCompletionDelegate {
         switch type {
         case .addTab:
             dismissTabTray()
-            LeanPlumClient.shared.track(event: .openedNewTab, withParameters: ["Source": "Tab Tray"])
         case .removedLastTab:
             // when removing the last tab (only in normal mode) we will automatically open a new tab.
             // When that happens focus it by dismissing the tab tray

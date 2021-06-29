@@ -70,48 +70,14 @@ extension BrowserViewController: TabToolbarDelegate, PhotonActionSheetProtocol {
             // Redraw the toolbar so the badge hides from the appMenu button.
             updateToolbarStateForTraitCollection(view.traitCollection)
         }
-        /* whatsNewAction = PhotonActionSheetItem(title: Strings.WhatsNewString, iconString: "whatsnew", isEnabled: showBadgeForWhatsNew, badgeIconNamed: "menuBadge") { _, _ in
-            if let whatsNewTopic = AppInfo.whatsNewTopic, let whatsNewURL = SupportUtils.URLForTopic(whatsNewTopic) {
-                TelemetryWrapper.recordEvent(category: .action, method: .open, object: .whatsNew)
-                self.openURLInNewTab(whatsNewURL)
-            }
-        } */
 
         // ensure that any keyboards or spinners are dismissed before presenting the menu
         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
         libraryDrawerViewController?.close(immediately: true)
         var actions: [[PhotonActionSheetItem]] = []
 
-        /* let syncAction = syncMenuButton(showFxA: presentSignInViewController)
-        let isLoginsButtonShowing = LoginListViewController.shouldShowAppMenuShortcut(forPrefs: profile.prefs)
-        let viewLogins: PhotonActionSheetItem? = !isLoginsButtonShowing ? nil :
-            PhotonActionSheetItem(title: Strings.LoginsAndPasswordsTitle, iconString: "key", iconType: .Image, iconAlignment: .left, isEnabled: true) { _, _ in
-            guard let navController = self.navigationController else { return }
-            let navigationHandler: ((_ url: URL?) -> Void) = { url in
-                UIApplication.shared.keyWindow?.rootViewController?.dismiss(animated: true, completion: nil)
-                self.openURLInNewTab(url)
-            }
-            LoginListViewController.create(authenticateInNavigationController: navController, profile: self.profile, settingsDelegate: self, webpageNavigationHandler: navigationHandler).uponQueue(.main) { loginsVC in
-                guard let loginsVC = loginsVC else { return }
-                loginsVC.shownFromAppMenu = true
-                let navController = ThemedNavigationController(rootViewController: loginsVC)
-                self.present(navController, animated: true)
-            }
-        }
-
-        let optionalActions = [syncAction, viewLogins].compactMap { $0 }
-        if !optionalActions.isEmpty {
-            actions.append(optionalActions)
-        } */
-
         actions.append(getLibraryActions(vcDelegate: self))
         actions.append(getOtherPanelActions(vcDelegate: self))
-
-        /* if let whatsNewAction = whatsNewAction, var lastGroup = actions.last, lastGroup.count > 1 {
-            lastGroup.insert(whatsNewAction, at: lastGroup.count - 1)
-            actions.removeLast()
-            actions.append(lastGroup)
-        } */
 
         // force a modal if the menu is being displayed in compact split screen
         let shouldSuppress = !topTabsVisible && UIDevice.current.userInterfaceIdiom == .pad
@@ -120,7 +86,6 @@ extension BrowserViewController: TabToolbarDelegate, PhotonActionSheetProtocol {
 
     func tabToolbarDidPressTabs(_ tabToolbar: TabToolbarProtocol, button: UIButton) {
         showTabTray()
-        TelemetryWrapper.recordEvent(category: .action, method: .press, object: .tabToolbar, value: .tabView)
     }
 
     func getTabToolbarLongPressActionsForModeSwitching() -> [PhotonActionSheetItem] {

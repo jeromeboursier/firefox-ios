@@ -54,16 +54,6 @@ protocol ShareControllerDelegate: AnyObject {
     func hidePopupWhenShowingAlert()
 }
 
-// Telemetry events are written to NSUserDefaults, and then the host app reads and clears this list.
-func addAppExtensionTelemetryEvent(forMethod method: String) {
-    let profile = BrowserProfile(localName: "profile")
-    var events = profile.prefs.arrayForKey(PrefsKeys.AppExtensionTelemetryEventArray) ?? [[String]]()
-    // Currently, only URL objects are shared.
-    let event = ["method": method, "object": "url"]
-    events.append(event)
-    profile.prefs.setObject(events, forKey: PrefsKeys.AppExtensionTelemetryEventArray)
-}
-
 class ShareViewController: UIViewController {
     var shareItem: ExtensionUtils.ExtractedShareItem?
     private var viewsShownDuringDoneAnimation = [UIView]()
@@ -313,28 +303,16 @@ class ShareViewController: UIViewController {
 
 extension ShareViewController {
     @objc func actionLoadInBackground(gesture: UIGestureRecognizer) {
-        
-        print("load in background")
-        
         // To avoid re-rentry from double tap, each action function disables the gesture
         gesture.isEnabled = false
         animateToActionDoneView(withTitle: Strings.ShareLoadInBackgroundDone)
 
         if let shareItem = shareItem, case .shareItem(let item) = shareItem {
-            print("load in background 2")
             let profile = BrowserProfile(localName: "profile")
-            print("load in background 3")
             profile.queue.addToQueue(item).uponQueue(.main) { _ in
-                print("load in background 4")
                 profile._shutdown()
-                print("load in background 5")
             }
-            
-            print("load in background 6")
-
-            // addAppExtensionTelemetryEvent(forMethod: "load-in-background")
         }
-        print("load in background 7")
 
         finish()
     }
@@ -348,8 +326,6 @@ extension ShareViewController {
             profile._reopen()
             _ = profile.places.createBookmark(parentGUID: BookmarkRoots.MobileFolderGUID, url: item.url, title: item.title).value // Intentionally block thread with database call.
             profile._shutdown()
-
-            // addAppExtensionTelemetryEvent(forMethod: "bookmark-this-page")
         }
 
         finish()
@@ -364,8 +340,6 @@ extension ShareViewController {
             profile._reopen()
             profile.readingList.createRecordWithURL(item.url, title: item.title ?? "", addedBy: UIDevice.current.name)
             profile._shutdown()
-
-            // addAppExtensionTelemetryEvent(forMethod: "add-to-reading-list")
         }
 
         finish()
@@ -390,10 +364,6 @@ extension ShareViewController {
     }
 
     func openFirefox(withUrl url: String, isSearch: Bool) {
-        // Telemetry is handled in the app delegate that receives this event.
-        let profile = BrowserProfile(localName: "profile")
-        profile.prefs.setBool(true, forKey: PrefsKeys.AppExtensionTelemetryOpenUrl)
-
        func firefoxUrl(_ url: String) -> String {
             let encoded = url.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.alphanumerics) ?? ""
             if isSearch {

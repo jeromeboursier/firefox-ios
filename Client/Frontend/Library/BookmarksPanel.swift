@@ -354,8 +354,6 @@ class BookmarksPanel: SiteTableViewController, LibraryPanel {
             navigationController?.pushViewController(nextController, animated: true)
         case let bookmarkItem as BookmarkItem:
             libraryPanelDelegate?.libraryPanel(didSelectURLString: bookmarkItem.url, visitType: .bookmark)
-            LeanPlumClient.shared.track(event: .openedBookmark)
-            TelemetryWrapper.recordEvent(category: .action, method: .open, object: .bookmark, value: .bookmarksPanel)
         default:
             return // Likely a separator was selected so do nothing.
         }
@@ -496,7 +494,6 @@ class BookmarksPanel: SiteTableViewController, LibraryPanel {
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let delete = UITableViewRowAction(style: .default, title: Strings.BookmarksPanelDeleteTableAction, handler: { (action, indexPath) in
             self.deleteBookmarkNodeAtIndexPath(indexPath)
-            TelemetryWrapper.recordEvent(category: .action, method: .delete, object: .bookmark, value: .bookmarksPanel, extras: ["gesture": "swipe"])
         })
 
         return [delete]
@@ -539,7 +536,6 @@ extension BookmarksPanel: LibraryPanelContextMenu {
 
         let removeAction = PhotonActionSheetItem(title: Strings.RemoveBookmarkContextMenuTitle, iconString: "action_bookmark_remove", handler: { _, _ in
             self.deleteBookmarkNodeAtIndexPath(indexPath)
-            TelemetryWrapper.recordEvent(category: .action, method: .delete, object: .bookmark, value: .bookmarksPanel, extras: ["gesture": "long-press"])
         })
         actions.append(removeAction)
 

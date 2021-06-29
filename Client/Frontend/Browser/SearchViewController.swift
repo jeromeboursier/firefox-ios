@@ -6,7 +6,6 @@ import UIKit
 import Shared
 import Storage
 import MozillaAppServices
-import Telemetry
 
 private enum SearchListSection: Int {
     case searchSuggestions
@@ -272,9 +271,6 @@ class SearchViewController: SiteTableViewController, KeyboardHelperDelegate, Loa
             return
         }
 
-        Telemetry.default.recordSearch(location: .quickSearch, searchEngine: engine.engineID ?? "other")
-        GleanMetrics.Search.counts["\(engine.engineID ?? "custom").\(SearchesMeasurement.SearchLocation.quickSearch.rawValue)"].add()
-
         searchDelegate?.searchViewController(self, didSelectURL: url)
     }
 
@@ -360,7 +356,6 @@ class SearchViewController: SiteTableViewController, KeyboardHelperDelegate, Loa
             if let site = data[indexPath.row] {
                 if let url = URL(string: site.url) {
                     searchDelegate?.searchViewController(self, didSelectURL: url)
-                    TelemetryWrapper.recordEvent(category: .action, method: .open, object: .bookmark, value: .awesomebarResults)
                 }
             }
         }
@@ -510,9 +505,6 @@ extension SearchViewController: SuggestionCellDelegate {
         let engine = searchEngines.defaultEngine
 
         if let url = engine.searchURLForQuery(suggestion) {
-            Telemetry.default.recordSearch(location: .suggestion, searchEngine: engine.engineID ?? "other")
-            GleanMetrics.Search.counts["\(engine.engineID ?? "custom").\(SearchesMeasurement.SearchLocation.suggestion.rawValue)"].add()
-
             searchDelegate?.searchViewController(self, didSelectURL: url)
         }
     }

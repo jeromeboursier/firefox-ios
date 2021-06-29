@@ -51,60 +51,7 @@ class ChronTabsUserResearch {
     
     // MARK: public
     func lpVariableObserver() {
-        // Condition: Leanplum is disabled; Set default chron tabs state
-        guard LeanPlumClient.shared.getSettings() != nil else {
-            // default state is false
             self.chronTabsState = false
             return
-        }
-        // Condition: A/B test variables from leanplum server
-        LeanPlumClient.shared.finishedStartingLeanplum = {
-            LeanPlumClient.shared.finishedStartingLeanplum = nil
-            guard self.fetchedExperimentVariables == false else {
-                return
-            }
-            self.fetchedExperimentVariables = true
-            
-            let lpValue = LPVariables.chronTabsABTest?.boolValue() ?? false
-            if self.chronTabsState != lpValue {
-                self.chronTabsState = lpValue
-                self.updateTelemetry()
-            }
-        }
-        // Condition: Leanplum server too slow; Set default state
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            guard self.fetchedExperimentVariables == false && self.chronTabsState == nil else {
-                return
-            }
-            // Condition: Leanplum server too slow; Set default New tab state
-            self.chronTabsState = false
-            // Condition: LP has already started but we missed onStartLPVariable callback
-            if case .started(startedState: _) = LeanPlumClient.shared.lpState , let boolValue = LPVariables.chronTabsABTest?.boolValue() {
-                self.chronTabsState = boolValue
-                self.updateTelemetry()
-            }
-            self.fetchedExperimentVariables = true
-        }
-    }
-    
-    func updateTelemetry() {
-        guard !hasEnrolled else { return }
-        // Printing variant is good to know all details of A/B test fields
-        print("lp variant \(String(describing: Leanplum.variants()))")
-        guard let variants = Leanplum.variants(), let lpData = variants.first as? Dictionary<String, AnyObject> else {
-            return
-        }
-        var abTestId = ""
-        if let value = lpData["abTestId"] as? Int64 {
-                abTestId = "\(value)"
-        }
-        let abTestName = lpData["abTestName"] as? String ?? ""
-        let abTestVariant = lpData["name"] as? String ?? ""
-        let attributesExtras = [LPAttributeKey.experimentId: abTestId, LPAttributeKey.experimentName: abTestName, LPAttributeKey.experimentVariant: abTestVariant]
-        // Leanplum telemetry
-        LeanPlumClient.shared.set(attributes: attributesExtras)
-        // Legacy telemetry
-        TelemetryWrapper.recordEvent(category: .enrollment, method: .add, object: .experimentEnrollment, extras: attributesExtras)
-        hasEnrolled = true
     }
 }

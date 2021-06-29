@@ -4,7 +4,6 @@
 
 import Shared
 import SwiftyJSON
-import SyncTelemetry
 import Account
 import SwiftKeychainWrapper
 import os.log
@@ -87,10 +86,6 @@ extension FxAPushMessageHandler {
                         let title = tabData.last?.title ?? ""
                         let url = tabData.last?.url ?? ""
                         let message = PushMessage.commandReceived(tab: ["title": title, "url": url])
-                        if let json = try? accountManager.gatherTelemetry() {
-                            let events = FxATelemetry.parseTelemetry(fromJSONString: json)
-                            events.forEach { $0.record(intoPrefs: self.profile.prefs) }
-                        }
                         deferred.fill(Maybe(success: message))
                     }
                 case .deviceConnected(let deviceName):

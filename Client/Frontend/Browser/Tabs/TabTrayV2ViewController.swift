@@ -123,7 +123,6 @@ class TabTrayV2ViewController: UIViewController, Themeable {
         navigationItem.title = Strings.TabTrayV2Title
         if #available(iOS 13.0, *) { } else {
             navigationItem.leftBarButtonItem = UIBarButtonItem(title: Strings.CloseButtonTitle, style: .done, target: self, action: #selector(dismissTabTray))
-            TelemetryWrapper.recordEvent(category: .action, method: .close, object: .tabTray)
         }
         
         // Bottom toolbar
@@ -243,7 +242,6 @@ extension TabTrayV2ViewController: UITableViewDataSource {
     @objc func didTapToolbarAddTab(_ sender: UIBarButtonItem) {
         viewModel.addTab()
         dismissTabTray()
-        TelemetryWrapper.recordEvent(category: .action, method: .add, object: .tab, value: viewModel.isInPrivateMode ? .privateTab : .normalTab)
     }
     
     @objc func didTapToolbarDelete(_ sender: UIButton) {
@@ -253,7 +251,6 @@ extension TabTrayV2ViewController: UITableViewDataSource {
         controller.popoverPresentationController?.sourceView = sender
         controller.popoverPresentationController?.sourceRect = sender.bounds
         present(controller, animated: true, completion: nil)
-        TelemetryWrapper.recordEvent(category: .action, method: .deleteAll, object: .tab, value: viewModel.isInPrivateMode ? .privateTab : .normalTab)
     }
     
     func didTogglePrivateMode(_ togglePrivateModeOn: Bool) {
@@ -400,6 +397,6 @@ extension TabTrayV2ViewController: BottomSheetDelegate {
 
 extension TabTrayV2ViewController: UIAdaptivePresentationControllerDelegate {
     func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
-        TelemetryWrapper.recordEvent(category: .action, method: .close, object: .tabTray)
+        
     }
 }

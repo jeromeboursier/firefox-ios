@@ -7,7 +7,6 @@ import UIKit
 import Storage
 import SDWebImage
 import XCGLogger
-import SyncTelemetry
 import SnapKit
 
 private let log = Logger.browserLogger
@@ -758,7 +757,6 @@ extension FirefoxHomeViewController: DataObserverDelegate {
         case .pocket:
             site = Site(url: pocketStories[index].url.absoluteString, title: pocketStories[index].title)
             let params = ["Source": "Activity Stream", "StoryType": "Article"]
-            LeanPlumClient.shared.track(event: .openedPocketStory, withParameters: params)
         case .topSites:
             return
         case .libraryShortcuts:
@@ -829,10 +827,6 @@ extension FirefoxHomeViewController: HomePanelContextMenu {
         let openInNewTabAction = PhotonActionSheetItem(title: Strings.OpenInNewTabContextMenuTitle, iconString: "quick_action_new_tab") { _, _ in
             self.homePanelDelegate?.homePanelDidRequestToOpenInNewTab(siteURL, isPrivate: false)
             let source = ["Source": "Activity Stream Long Press Context Menu"]
-            LeanPlumClient.shared.track(event: .openedNewTab, withParameters: source)
-            if Section(indexPath.section) == .pocket {
-                LeanPlumClient.shared.track(event: .openedPocketStory, withParameters: source)
-            }
         }
 
         let openInNewPrivateTabAction = PhotonActionSheetItem(title: Strings.OpenInNewPrivateTabContextMenuTitle, iconString: "quick_action_new_private_tab") { _, _ in
@@ -846,8 +840,6 @@ extension FirefoxHomeViewController: HomePanelContextMenu {
                     self.profile.panelDataObservers.activityStream.refreshIfNeeded(forceTopSites: false)
                     site.setBookmarked(false)
                 }
-
-                TelemetryWrapper.recordEvent(category: .action, method: .delete, object: .bookmark, value: .activityStream)
             })
         } else {
             bookmarkAction = PhotonActionSheetItem(title: Strings.BookmarkContextMenuTitle, iconString: "action_bookmark", handler: { _, _ in
@@ -863,8 +855,6 @@ extension FirefoxHomeViewController: HomePanelContextMenu {
                                                                                     toApplication: .shared)
                 site.setBookmarked(true)
                 self.profile.panelDataObservers.activityStream.refreshIfNeeded(forceTopSites: true)
-                LeanPlumClient.shared.track(event: .savedBookmark)
-                TelemetryWrapper.recordEvent(category: .action, method: .add, object: .bookmark, value: .activityStream)
             })
         }
 

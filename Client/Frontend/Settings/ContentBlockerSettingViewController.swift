@@ -171,8 +171,6 @@ class ContentBlockerSettingViewController: SettingsTableViewController {
                 self.prefs.setString(self.currentBlockingStrength.rawValue, forKey: ContentBlockingConfig.Prefs.StrengthKey)
                 TabContentBlocker.prefsChanged()
                 self.tableView.reloadData()
-                LeanPlumClient.shared.track(event: .trackingProtectionSettings, withParameters: ["Strength option": option.rawValue])
-                TelemetryWrapper.recordEvent(category: .action, method: .change, object: .setting, extras: ["pref": "ETP-strength", "to": option.rawValue])
                 
                 if option == .strict {
                     let alert = UIAlertController(title: Strings.TrackerProtectionAlertTitle, message: Strings.TrackerProtectionAlertDescription, preferredStyle: .alert)

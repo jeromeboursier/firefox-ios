@@ -2155,10 +2155,6 @@ extension BrowserViewController {
                 if self.navigationController?.viewControllers.count ?? 0 > 1 {
                     _ = self.navigationController?.popToRootViewController(animated: true)
                 }
-                if let flow = fxaLoginFlow {
-                    let fxaParams = FxALaunchParams(query: ["entrypoint": "firstrun"])
-                    self.presentSignInViewController(fxaParams, flowType: flow, referringPage: .onboarding)
-                }
             }
         }
         self.introVCPresentHelper(introViewController: introViewController)

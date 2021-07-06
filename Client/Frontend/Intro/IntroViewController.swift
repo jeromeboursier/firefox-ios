@@ -6,33 +6,87 @@ import Foundation
 import UIKit
 import SnapKit
 import Shared
-import Leanplum
 
-class IntroViewController: UIViewController {
-    // private var
-    // Private views
-    private lazy var welcomeCard: IntroScreenWelcomeView = {
-        let welcomeCardView = IntroScreenWelcomeView()
-        welcomeCardView.clipsToBounds = true
-        return welcomeCardView
-    }()
-    private lazy var efficiencyCard: IntroScreenEfficiencyView = {
-        let efficiencyCardView = IntroScreenEfficiencyView()
-        efficiencyCardView.clipsToBounds = true
-        return efficiencyCardView
-    }()
-    private lazy var privacyCard: IntroScreenPrivacyView = {
-        let privacyCardView = IntroScreenPrivacyView()
-        privacyCardView.clipsToBounds = true
-        return privacyCardView
-    }()
-    /* private lazy var syncCard: IntroScreenSyncView = {
-        let syncCardView = IntroScreenSyncView()
-        syncCardView.clipsToBounds = true
-        return syncCardView
-    }() */
+class IntroViewController: UIViewController, CardTheme {
     // Closure delegate
     var didFinishClosure: ((IntroViewController, FxAPageType?) -> Void)?
+    
+    // Private view
+    private var fxTextThemeColour: UIColor {
+        return theme == .dark ?
+            UIColor(red: 245.0 / 255, green: 245.0 / 255, blue: 247.0 / 255, alpha: 1.0) :
+            .black
+    }
+    private var fxSubTextThemeColour: UIColor {
+        return theme == .dark ?
+            UIColor(red: 217.0 / 255, green: 217.0 / 255, blue: 224.0 / 255, alpha: 1.0) :
+            UIColor(red: 89.0 / 255, green: 89.0 / 255, blue: 95.0 / 255, alpha: 1.0)
+    }
+    private var fxBackgroundThemeColour: UIColor {
+        return theme == .dark ?
+            UIColor(red: 25.0 / 255, green: 25.0 / 255, blue: 27.0 / 255, alpha: 1.0) :
+            .white
+    }
+    
+    private lazy var titleLabel: UILabel = {
+        let label = UILabel()
+        label.text = Strings.IntroCardTitle1
+        label.textColor = fxTextThemeColour
+        label.font = UIFont.systemFont(ofSize: 32, weight: .regular)
+        label.textAlignment = .center
+        label.numberOfLines = 1
+        return label
+    }()
+    private lazy var titleBoldLabel: UILabel = {
+        let label = UILabel()
+        label.text = Strings.IntroCardTitle2
+        label.textColor = fxTextThemeColour
+        label.font = UIFont.systemFont(ofSize: 32, weight: .bold)
+        label.textAlignment = .center
+        label.numberOfLines = 2
+        return label
+    }()
+    private lazy var subtitleLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Ouvrez tous vos liens dans l'app Qwant" // Strings.CardTitleFxASyncDevices
+        label.textColor = fxSubTextThemeColour
+        label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+        label.textAlignment = .center
+        label.numberOfLines = 0
+        return label
+    }()
+    
+    private lazy var imageView: UIImageView = {
+        let imgView = UIImageView(image: theme == .dark ? #imageLiteral(resourceName: "illustrationOnboardingDark") : #imageLiteral(resourceName: "illustrationOnboardingLight") )
+        imgView.contentMode = .center
+        return imgView
+    }()
+    
+    private var openSettingsButton: UIButton = {
+        let button = UIButton()
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .regular)
+        button.layer.cornerRadius = 23
+        button.backgroundColor = UIColor(red: 26.0 / 255, green: 106.0 / 255, blue: 1.0, alpha: 1.0)
+        button.setTitle("Ouvrir les réglages" /* Strings.IntroSignUpButtonTitle */, for: .normal)
+        button.accessibilityIdentifier = "openSettingButtonIntroView"
+        return button
+    }()
+    
+    private lazy var ignoreButton: UIButton = {
+        let button = UIButton()
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .regular)
+        button.backgroundColor = .clear
+        button.setTitleColor(fxTextThemeColour, for: .normal)
+        button.setTitle("Ignorer"/* Strings.StartBrowsingButtonTitle */, for: .normal)
+        button.titleLabel?.textAlignment = .center
+        button.accessibilityIdentifier = "ignoreButtonIntroView"
+        return button
+    }()
+    
+    private let topContainerView = UIView()
+    private let combinedView = UIView()
+    
+    private let screenSize = DeviceInfo.screenSizeOrientationIndependent()
     
     // MARK: Initializer
     init() {
@@ -46,96 +100,96 @@ class IntroViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         initialViewSetup()
+        topContainerViewSetup()
+        bottomViewSetup()
     }
     
     // MARK: View setup
     private func initialViewSetup() {
-        setupIntroView()
+        combinedView.addSubview(titleLabel)
+        combinedView.addSubview(titleBoldLabel)
+        combinedView.addSubview(subtitleLabel)
+        combinedView.addSubview(imageView)
+        topContainerView.addSubview(combinedView)
+        view.addSubview(topContainerView)
+        view.addSubview(openSettingsButton)
+        view.addSubview(ignoreButton)
     }
     
-    private func setupWelcomeCard() {
-        // Constraints
-        welcomeCard.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+    private func topContainerViewSetup() {
+        // Background colour setup
+        view.backgroundColor = fxBackgroundThemeColour
+        // Height constants
+        let titleLabelHeight = 35
+        let titleBoldLabelHeight = 80
+        let subtitleLabelHeight = 50
+        let titleImageHeight = screenSize.height > 600 ? 300 : 200
+        // Title label constraints
+        titleLabel.snp.makeConstraints { make in
+            make.left.right.equalToSuperview().inset(24)
+            make.top.equalToSuperview()
+            make.height.equalTo(titleLabelHeight)
         }
-        // Buton action closures
-        // Next button action
-        welcomeCard.nextClosure = {
-            UIView.animate(withDuration: 0.3, animations: {
-                self.welcomeCard.alpha = 0
-            }) { _ in
-                self.welcomeCard.isHidden = true
-            }
+        titleBoldLabel.snp.makeConstraints { make in
+            make.left.right.equalToSuperview().inset(24)
+            make.top.equalTo(titleLabel.snp.bottom)
+            make.margins.equalTo(0)
+            make.height.equalTo(titleBoldLabelHeight)
         }
-        // Close button action
-        welcomeCard.closeClosure = {
-            self.didFinishClosure?(self, nil)
+        // Description label constraints
+        subtitleLabel.snp.makeConstraints { make in
+            make.left.right.equalToSuperview().inset(24)
+            make.top.equalTo(titleBoldLabel.snp.bottom)
+            make.height.equalTo(subtitleLabelHeight)
         }
-    }
-    
-    private func setupPrivacyCard() {
-        // Constraints
-        privacyCard.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+        // Title image view constraints
+        imageView.snp.makeConstraints { make in
+            make.left.right.bottom.equalToSuperview()
+            make.top.equalTo(subtitleLabel.snp.bottom)
+            make.height.equalTo(titleImageHeight)
         }
-        // Buton action closures
-        // Next button action
-        privacyCard.nextClosure = {
-            UIView.animate(withDuration: 0.3, animations: {
-                self.privacyCard.alpha = 0
-            }) { _ in
-                self.privacyCard.isHidden = true
-            }
+        // Top container view constraints
+        topContainerView.snp.makeConstraints { make in
+            make.top.equalTo(view.safeArea.top)
+            make.bottom.equalTo(openSettingsButton.snp.top)
+            make.left.right.equalToSuperview()
         }
-        // Close button action
-        privacyCard.closeClosure = {
-            self.didFinishClosure?(self, nil)
-        }
-    }
-    
-    private func setupEfficiencyCard() {
-        // Constraints
-        efficiencyCard.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
-        
-        // Buton action closures
-        // Next button action
-        efficiencyCard.nextClosure = {
-            self.didFinishClosure?(self, nil)
-        }
-        // Close button action
-        efficiencyCard.closeClosure = {
-            self.didFinishClosure?(self, nil)
+        // Combined view constraints
+        combinedView.snp.makeConstraints { make in
+            make.top.equalToSuperview().inset(24)
+            make.height.equalTo(titleLabelHeight + subtitleLabelHeight + titleImageHeight)
+            make.centerY.equalToSuperview()
+            make.bottom.left.right.equalToSuperview()
         }
     }
     
-    //onboarding intro view
-    private func setupIntroView() {
-        // Initialize
-        // view.addSubview(syncCard)
-        view.addSubview(efficiencyCard)
-        view.addSubview(privacyCard)
-        view.addSubview(welcomeCard)
-        // Constraints
-        setupWelcomeCard()
-        setupPrivacyCard()
-        setupEfficiencyCard()
+    private func bottomViewSetup() {
+        // Sign-up button constraints
+        openSettingsButton.snp.makeConstraints { make in
+            make.bottom.equalTo(ignoreButton.snp.top).offset(-20)
+            make.left.right.equalToSuperview().inset(24)
+            make.height.equalTo(46)
+            
+        }
+        // Start browsing button constraints
+        ignoreButton.snp.makeConstraints { make in
+            make.bottom.equalToSuperview().inset(24) // (view.safeArea.bottom)
+            make.left.right.equalToSuperview().inset(80)
+            make.height.equalTo(46)
+        }
+        // Sign-up and start browsing button action
+        openSettingsButton.addTarget(self, action: #selector(openSettingsAction), for: .touchUpInside)
+        ignoreButton.addTarget(self, action: #selector(ignoreAction), for: .touchUpInside)
     }
     
-    /* private func setupSyncCard() {
-        syncCard.snp.makeConstraints() { make in
-            make.edges.equalToSuperview()
-        }
-        // Start browsing button action
-        syncCard.startBrowsing = {
-            self.didFinishClosure?(self, nil)
-        }
-        // Sign-up browsing button action
-        syncCard.signUp = {
-            self.didFinishClosure?(self, .emailLoginFlow)
-        }
-    } */
+    @objc private func openSettingsAction() {
+        UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!, options: [:])
+        self.didFinishClosure?(self, nil)
+    }
+    
+    @objc private func ignoreAction() {
+        self.didFinishClosure?(self, nil)
+    }
 }
 
 // MARK: UIViewController setup

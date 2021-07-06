@@ -1011,7 +1011,7 @@ class SiriPageSetting: Setting {
     }
 } */
 
-/* @available(iOS 14.0, *)
+@available(iOS 14.0, *)
 class DefaultBrowserSetting: Setting {
     let profile: Profile
 
@@ -1026,7 +1026,7 @@ class DefaultBrowserSetting: Setting {
     override func onClick(_ navigationController: UINavigationController?) {
         UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!, options: [:])
     }
-} */
+}
 
 class OpenWithSetting: Setting {
     let profile: Profile

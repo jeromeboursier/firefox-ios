@@ -692,35 +692,17 @@ extension Strings {
     public static let CardTitleSafeSync = NSLocalizedString("Intro.Slides.Safe.Sync.Title", tableName: "Intro", value: "Safe Sync", comment: "Title for the third item in the table related to safe syncing with a firefox account")
     public static let CardDescriptionSafeSync = NSLocalizedString("Intro.Slides.Safe.Sync.Description", tableName: "Intro", value: "Protect your logins and data everywhere you use Firefox.", comment: "Description for the third item in the table related to safe syncing with a firefox account")
     
-    // Second Card
-    public static let CardTitleFxASyncDevices = NSLocalizedString("Intro.Slides.Firefox.Account.Sync.Title", tableName: "Intro", value: "Sync Firefox Between Devices", comment: "Title for the first item in the table related to syncing data (bookmarks, history) via firefox account between devices")
-    public static let CardDescriptionFxASyncDevices = NSLocalizedString("Intro.Slides.Firefox.Account.Sync.Description", tableName: "Intro", value: "Bring bookmarks, history, and passwords to Firefox on this device.", comment: "Description for the first item in the table related to syncing data (bookmarks, history) via firefox account between devices")
     
-    //----Other----//
-    public static let CardTitleSearch = NSLocalizedString("Intro.Slides.Search.Title", tableName: "Intro", value: "Your search, your way", comment: "Title for the second  panel 'Search' in the First Run tour.")
-    public static let CardTitlePrivate = NSLocalizedString("Intro.Slides.Private.Title", tableName: "Intro", value: "Browse like no one’s watching", comment: "Title for the third panel 'Private Browsing' in the First Run tour.")
-    public static let CardTitleMail = NSLocalizedString("Intro.Slides.Mail.Title", tableName: "Intro", value: "You’ve got mail… options", comment: "Title for the fourth panel 'Mail' in the First Run tour.")
-    public static let CardTitleSync = NSLocalizedString("Intro.Slides.TrailheadSync.Title.v2", tableName: "Intro", value: "Sync your bookmarks, history, and passwords to your phone.", comment: "Title for the second panel 'Sync' in the First Run tour.")
-
-    public static let CardTextWelcome = NSLocalizedString("Intro.Slides.Welcome.Description.v2", tableName: "Intro", value: "Fast, private, and on your side.", comment: "Description for the 'Welcome' panel in the First Run tour.")
-    public static let CardTextSearch = NSLocalizedString("Intro.Slides.Search.Description", tableName: "Intro", value: "Searching for something different? Choose another default search engine (or add your own) in Settings.", comment: "Description for the 'Favorite Search Engine' panel in the First Run tour.")
-    public static let CardTextPrivate = NSLocalizedString("Intro.Slides.Private.Description", tableName: "Intro", value: "Tap the mask icon to slip into Private Browsing mode.", comment: "Description for the 'Private Browsing' panel in the First Run tour.")
-    public static let CardTextMail = NSLocalizedString("Intro.Slides.Mail.Description", tableName: "Intro", value: "Use any email app — not just Mail — with Firefox.", comment: "Description for the 'Mail' panel in the First Run tour.")
-    public static let CardTextSync = NSLocalizedString("Intro.Slides.TrailheadSync.Description", tableName: "Intro", value: "Sign in to your account to sync and access more features.", comment: "Description for the 'Sync' panel in the First Run tour.")
-    public static let SignInButtonTitle = NSLocalizedString("Turn on Sync…", tableName: "Intro", comment: "The button that opens the sign in page for sync. See http://mzl.la/1T8gxwo")
-    public static let StartBrowsingButtonTitle = NSLocalizedString("Start Browsing", tableName: "Intro", comment: "See http://mzl.la/1T8gxwo")
-    public static let IntroNextButtonTitle = NSLocalizedString("Intro.Slides.Button.Next", tableName: "Intro", value: "Next", comment: "Next button on the first intro screen.")
-    public static let IntroSignInButtonTitle = NSLocalizedString("Intro.Slides.Button.SignIn", tableName: "Intro", value: "Sign In", comment: "Sign in to Firefox account button on second intro screen.")
-    public static let IntroSignUpButtonTitle = NSLocalizedString("Intro.Slides.Button.SignUp", tableName: "Intro", value: "Sign Up", comment: "Sign up to Firefox account button on second intro screen.")
 }
 
 extension Strings {
-    public static let CardTitleWelcome2 = NSLocalizedString("Intro.Slides.Welcome2.Title", tableName: "Intro", value: "Welcome on Qwant mobile !", comment: "Title for the first panel 'Welcome' in the First Run tour.")
-    public static let CardTitlePrivacy = NSLocalizedString("Intro.Slides.Privacy.Title", tableName: "Intro", value: "Your life stays private", comment: "Title for the second panel 'Privacy' in the First Run tour.")
-    public static let CardTitleEfficiency = NSLocalizedString("Intro.Slides.Efficiency.Title", tableName: "Intro", value: "Fast and efficient searches", comment: "Title for the third panel 'Efficiency' in the First Run tour.")
-    public static let CardTextWelcome2 = NSLocalizedString("Intro.Slides.Welcome2.Description", tableName: "Intro", value: "With Qwant mobile, navigate quickly and enjoy the browser which respect your privacy", comment: "Description for the 'Welcome' panel in the First Run tour.")
-    public static let CardTextPrivacy = NSLocalizedString("Intro.Slides.Privacy.Description", tableName: "Intro", value: "Qwant neither look the site you visit nor your researshes. It fight again ad tracking and stays neutral", comment: "Description for the 'Privacy' panel in the First Run tour.")
-    public static let CardTextEfficiency = NSLocalizedString("Intro.Slides.Efficiency.Description", tableName: "Intro", value: "Qwant delivers the best results intantaneously. Search everything, freely", comment: "Description for the 'Efficiency' panel in the First Run tour.")
+    public static let StartBrowsingButtonTitle = NSLocalizedString("Start Browsing", tableName: "Intro", comment: "See http://mzl.la/1T8gxwo")
+    
+    public static let IntroCardTitle1 = NSLocalizedString("Intro.Slides.DefaultBrowser.Title1", tableName: "Intro", value: "Make the Qwant app", comment: "Title for the first panel 'Default browser' in the First Run tour.")
+    public static let IntroCardTitle2 = NSLocalizedString("Intro.Slides.DefaultBrowser.Title2", tableName: "Intro", value: "your default browser", comment: "Title for the first panel 'Default browser' in the First Run tour.")
+    public static let IntroCardSubtitle = NSLocalizedString("Intro.Slides.DefaultBrowser.Subtitle", tableName: "Intro", value: "Open all your links in the Qwant app", comment: "Title for the first panel 'Default browser' in the First Run tour.")
+    public static let IntroCardOpenSettings = NSLocalizedString("Intro.Slides.DefaultBrowser.OpenSettings", tableName: "Intro", value: "Open the settings", comment: "Title for the first panel 'Default browser' in the First Run tour.")
+    public static let IntroCardIgnore = NSLocalizedString("Intro.Slides.DefaultBrowser.Ignore", tableName: "Intro", value: "Ignore", comment: "Title for the first panel 'Default browser' in the First Run tour.")
 }
 
 // Keyboard short cuts

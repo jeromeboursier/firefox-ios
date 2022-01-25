@@ -28,3 +28,18 @@
 /* Menu option for setting Firefox as default browser. */
 "Settings.DefaultBrowserMenuItem" = "Définir comme navigateur par défaut";
 
+/* First part of the title to help users understand that they can set Qwant as their default browser. */
+"DefaultBrowserOnboarding.Qwant.Title1" = "Faîtes de l'app Qwant";
+
+/* Second part of the title to help users understand that they can set Qwant as their default browser. */
+"DefaultBrowserOnboarding.Qwant.Title2" = "votre navigateur par défaut";
+
+/* Description to help users understand that they can set Qwant as their default browser. */
+"DefaultBrowserOnboarding.Qwant.Description" = "Ouvrez tous vos liens dans l'app Qwant !";
+
+/* Button string to open settings that allows user to switch their default browser to Qwant. */
+"DefaultBrowserOnboarding.Qwant.ButtonSettings" = "Ouvrir les réglages";
+
+/* Button string to ignore the default browser capability. */
+"DefaultBrowserOnboarding.Qwant.ButtonIgnore" = "Ignorer";
+

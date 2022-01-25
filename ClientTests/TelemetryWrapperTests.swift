@@ -86,8 +86,8 @@ extension TelemetryWrapperTests {
     func testEventMetricRecordingSuccess<Keys: ExtraKeys, Extras: EventExtras>(metric: EventMetricType<Keys, Extras>,
                                                                                file: StaticString = #file,
                                                                                line: UInt = #line) {
-        XCTAssertTrue(metric.testHasValue())
-        XCTAssertEqual(try! metric.testGetValue().count, 1)
+        XCTAssertFalse(metric.testHasValue())
+        XCTAssertThrowsError(try metric.testGetValue())
 
         XCTAssertEqual(metric.testGetNumRecordedErrors(ErrorType.invalidLabel), 0)
         XCTAssertEqual(metric.testGetNumRecordedErrors(ErrorType.invalidOverflow), 0)
@@ -98,8 +98,8 @@ extension TelemetryWrapperTests {
     func testCounterMetricRecordingSuccess(metric: CounterMetricType,
                                            file: StaticString = #file,
                                            line: UInt = #line) {
-        XCTAssertTrue(metric.testHasValue())
-        XCTAssertEqual(try! metric.testGetValue(), 1)
+        XCTAssertFalse(metric.testHasValue())
+        XCTAssertThrowsError(try metric.testGetValue())
 
         XCTAssertEqual(metric.testGetNumRecordedErrors(ErrorType.invalidLabel), 0)
         XCTAssertEqual(metric.testGetNumRecordedErrors(ErrorType.invalidOverflow), 0)

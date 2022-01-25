@@ -23,9 +23,9 @@ class RatingPromptManagerTests: XCTestCase {
         mockProfile = MockProfile()
         mockProfile._reopen()
 
-        // Make sure engine is set to Google
-        let googleEngine = mockProfile.searchEngines.orderedEngines.first(where: { $0.shortName == "Google" })!
-        mockProfile.searchEngines.defaultEngine = googleEngine
+        // Make sure engine is set to Qwant
+        let qwantEngine = mockProfile.searchEngines.orderedEngines.first(where: { $0.shortName == "Qwant" })!
+        mockProfile.searchEngines.defaultEngine = qwantEngine
     }
 
     override func tearDown() {
@@ -180,7 +180,7 @@ class RatingPromptManagerTests: XCTestCase {
         RatingPromptManager.goToAppStoreReview(with: urlOpenerSpy)
 
         XCTAssertEqual(urlOpenerSpy.openURLCount, 1)
-        XCTAssertEqual(urlOpenerSpy.capturedURL?.absoluteString, "https://itunes.apple.com/app/id\(AppInfo.appStoreId)?action=write-review")
+        XCTAssertEqual(urlOpenerSpy.capturedURL?.absoluteString, "https://itunes.apple.com/app/id\(AppInfo.qwantAppStoreId)?action=write-review")
     }
 }
 

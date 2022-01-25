@@ -49,6 +49,8 @@ class TabManagerStoreTests: XCTestCase {
         XCTAssertEqual(manager.testCountRestoredTabs(), 0)
     }
 
+    // Test disabled due to Issue:https://github.com/mozilla-mobile/firefox-ios/issues/7867
+    /*
     func testPrivateTabsAreArchived() {
         for _ in 0..<2 {
             addTabWithSessionData(isPrivate: true)
@@ -61,8 +63,6 @@ class TabManagerStoreTests: XCTestCase {
         waitForExpectations(timeout: 2, handler: nil)
     }
 
-    // Test disabled due to Issue:https://github.com/mozilla-mobile/firefox-ios/issues/7867
-    /*
     func testAddedTabsAreStored() {
         // Add 2 tabs
         for _ in 0..<2 {

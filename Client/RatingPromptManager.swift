@@ -61,7 +61,7 @@ class RatingPromptManager {
     /// Go to the App Store review page of this application
     /// - Parameter urlOpener: Opens the App Store url
     static func goToAppStoreReview(with urlOpener: URLOpenerProtocol = UIApplication.shared) {
-        guard let url = URL(string: "https://itunes.apple.com/app/id\(AppInfo.appStoreId)?action=write-review") else { return }
+        guard let url = URL(string: "https://itunes.apple.com/app/id\(AppInfo.qwantAppStoreId)?action=write-review") else { return }
         urlOpener.open(url)
     }
 
@@ -104,13 +104,13 @@ class RatingPromptManager {
         // One of the following
         let isBrowserDefault = RatingPromptManager.isBrowserDefault
         let hasSyncAccount = profile.hasSyncableAccount()
-        let engineIsGoogle = profile.searchEngines.defaultEngine.shortName == "Google"
+        let engineIsQwant = profile.searchEngines.defaultEngine.shortName == "Qwant"
         let hasTPStrict = profile.prefs.stringForKey(ContentBlockingConfig.Prefs.StrengthKey).flatMap({BlockingStrength(rawValue: $0)}) == .strict
         guard isBrowserDefault
                 || hasSyncAccount
                 || hasMinimumBookmarksCount
                 || hasMinimumPinnedShortcutsCount
-                || !engineIsGoogle
+                || !engineIsQwant
                 || hasTPStrict
         else { return false }
 

@@ -196,7 +196,7 @@ extension PhotonActionSheetProtocol where Self: FeatureFlagsProtocol {
             section1.insert((isBookmarked ? removeBookmark : bookmarkPage), at: 0)
         }
 
-        section3.insert(contentsOf: [copyURL, sendToDevice], at: 0)
+        section3.insert(contentsOf: [copyURL/*, sendToDevice*/], at: 0)
 
         // Disable find in page and report site issue if document is pdf.
         if tab.mimeType != MIMEType.PDF {

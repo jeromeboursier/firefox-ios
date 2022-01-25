@@ -34,6 +34,7 @@ class DefaultBrowserOnboardingTests: XCTestCase {
         var didShow: Bool = false
         prefs.setInt(3, forKey: PrefsKeys.SessionCount)
         UserDefaults.standard.set(false, forKey: PrefsKeys.KeyDidShowDefaultBrowserOnboarding)
+        UserDefaults.standard.set("fresh", forKey: PrefsKeys.InstallType)
         shouldShow = DefaultBrowserOnboardingViewModel.shouldShowDefaultBrowserOnboarding(userPrefs: prefs)
         didShow = UserDefaults.standard.bool(forKey: PrefsKeys.KeyDidShowDefaultBrowserOnboarding)
         XCTAssert(shouldShow)

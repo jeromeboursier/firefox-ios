@@ -31,4 +31,8 @@ class YourRightsSetting: Setting {
         settingsDelegate?.pressedYourRights(url: url, title: title)
         return
     }
+
+    override var hidden: Bool {
+        return true
+    }
 }

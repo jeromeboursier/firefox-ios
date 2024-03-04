@@ -61,6 +61,7 @@ struct ImageButtonWithLabel: View {
 
     var body: some View {
         Link(destination: isSmall ? link.smallWidgetUrl : link.mediumWidgetUrl) {
+            let foregroundColor = link == .search ? Color("AccentColorReversed") : Color("AccentColor")
             ZStack(alignment: .leading) {
                 if !isSmall {
                     ContainerRelativeShape()
@@ -93,22 +94,27 @@ struct ImageButtonWithLabel: View {
                             Image("searchLarge")
                                 .scaledToFit()
                                 .frame(height: 24.0)
+                                .tint(Color("AccentColorReversed"))
                         } else {
                             Image(link.imageName)
+                                .resizable()
                                 .scaledToFit()
                                 .frame(height: 24.0)
+                                .tint(Color("AccentColor"))
                         }
                     }
                     if isSmall {
                         HStack(alignment: .bottom) {
                             Spacer()
-                            Image("faviconFox")
+                            Image("qwant_Q")
+                                .resizable()
                                 .scaledToFit()
                                 .frame(height: 24.0)
+                                .tint(Color("AccentColor"))
                         }
                     }
                 }
-                .foregroundColor(Color("widgetLabelColors"))
+                .foregroundColor(foregroundColor)
                 .padding([.horizontal, .vertical], paddingValue)
             }
         }

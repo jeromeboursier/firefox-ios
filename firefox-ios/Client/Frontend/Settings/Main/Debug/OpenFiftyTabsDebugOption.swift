@@ -16,7 +16,7 @@ class OpenFiftyTabsDebugOption: HiddenSetting {
 
     override var title: NSAttributedString? {
         return NSAttributedString(
-            string: "Open 50 `mozilla.org` tabs ⚠️",
+            string: "Open 50 `qwant.com` SERP tabs ⚠️",
             attributes: [NSAttributedString.Key.foregroundColor: theme.colors.textPrimary]
         )
     }

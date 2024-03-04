@@ -390,7 +390,7 @@ class BrowserCoordinator: BaseCoordinator,
     }
 
     func openDebugTestTabs(count: Int) {
-        guard let url = URL(string: "https://www.mozilla.org") else { return }
+        guard let url = URL(string: "https://www.qwant.com/?q=serp") else { return }
         browserViewController.debugOpen(numberOfNewTabs: count, at: url)
     }
 

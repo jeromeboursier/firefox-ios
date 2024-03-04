@@ -27,4 +27,6 @@ class SwitchFakespotProduction: HiddenSetting, FeatureFlaggable {
 
         settingsDelegate?.askedToReload()
     }
+
+    override var hidden: Bool { return true }
 }

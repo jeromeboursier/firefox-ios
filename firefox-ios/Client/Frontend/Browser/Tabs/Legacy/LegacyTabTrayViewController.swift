@@ -141,7 +141,7 @@ class LegacyTabTrayViewController: UIViewController, Themeable, TabTrayControlle
     }()
 
     private lazy var bottomToolbarItems: [UIBarButtonItem] = {
-        return [deleteButtonIphone, flexibleSpace, newTabButtonIphone]
+        return [deleteButtonIphone, flexibleSpace, flexibleSpace, newTabButtonIphone]
     }()
 
     private lazy var bottomToolbarItemsForSync: [UIBarButtonItem] = {
@@ -149,7 +149,7 @@ class LegacyTabTrayViewController: UIViewController, Themeable, TabTrayControlle
     }()
 
     private lazy var segmentedControlIpad: UISegmentedControl = {
-        let items = TabTrayPanelType.allCases.map { $0.label }
+        let items = TabTrayPanelType.allCases.filter { $0 != .syncedTabs }.map { $0.label }
         return createSegmentedControl(items: items,
                                       action: #selector(segmentIpadChanged),
                                       a11yId: AccessibilityIdentifiers.TabTray.navBarSegmentedControl)
@@ -159,7 +159,7 @@ class LegacyTabTrayViewController: UIViewController, Themeable, TabTrayControlle
         let items = [
             TabTrayPanelType.tabs.image!.overlayWith(image: countLabel),
             TabTrayPanelType.privateTabs.image!,
-            TabTrayPanelType.syncedTabs.image!]
+            /*TabTrayPanelType.syncedTabs.image!*/]
         return createSegmentedControl(items: items,
                                       action: #selector(segmentIphoneChanged),
                                       a11yId: AccessibilityIdentifiers.TabTray.navBarSegmentedControl)

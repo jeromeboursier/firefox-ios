@@ -134,9 +134,9 @@ class SettingsCoordinator: BaseCoordinator,
             }
 
         case .contentBlocker:
-            let contentBlockerVC = ContentBlockerSettingViewController(windowUUID: windowUUID,
-                                                                       prefs: profile.prefs,
-                                                                       isShownFromSettings: false)
+            let contentBlockerVC = QwantContentBlockerSettingViewController(windowUUID: windowUUID,
+                                                                            prefs: profile.prefs,
+                                                                            isShownFromSettings: false)
             contentBlockerVC.settingsDelegate = self
             contentBlockerVC.profile = profile
             contentBlockerVC.tabManager = tabManager
@@ -258,7 +258,7 @@ class SettingsCoordinator: BaseCoordinator,
     }
 
     func pressedContentBlocker() {
-        let viewController = ContentBlockerSettingViewController(windowUUID: windowUUID, prefs: profile.prefs)
+        let viewController = QwantContentBlockerSettingViewController(windowUUID: windowUUID, prefs: profile.prefs)
         viewController.settingsDelegate = self
         viewController.profile = profile
         viewController.tabManager = tabManager

@@ -28,4 +28,6 @@ class FasterInactiveTabs: HiddenSetting {
         UserDefaults.standard.set(!isFasterEnabled, forKey: PrefsKeys.FasterInactiveTabsOverride)
         settingsDelegate?.askedToReload()
     }
+
+    override var hidden: Bool { return true }
 }

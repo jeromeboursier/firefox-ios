@@ -85,13 +85,18 @@ class TelemetryWrapper: TelemetryWrapperProtocol, FeatureFlaggable {
         migratePathComponentInDocumentsDirectory("MozTelemetry-Default-mobile-event", to: .cachesDirectory)
         migratePathComponentInDocumentsDirectory("eventArray-MozTelemetry-Default-mobile-event.json", to: .cachesDirectory)
 
-        let sendUsageData = profile.prefs.boolForKey(AppConstants.prefSendUsageData) ?? true
+        let sendUsageData = profile.prefs.boolForKey(AppConstants.prefSendUsageData) ?? false
 
         // Initialize Glean
         initGlean(profile, sendUsageData: sendUsageData)
     }
 
     func initGlean(_ profile: Profile, sendUsageData: Bool) {
+        // Nope.
+        // swiftlint:disable trailing_semicolon
+        return;
+        // swiftlint:enable trailing_semicolon
+        
         // Record default search engine setting to avoid sending a `null` value.
         // If there's no default search engine, (there's not, at this point), we will
         // send "unavailable" in order not to send `null`, but still differentiate

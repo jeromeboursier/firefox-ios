@@ -209,7 +209,7 @@ extension URL {
             forInfoDictionaryKey: "MozPublicURLScheme"
         ) as? String, !string.isEmpty else {
             // Something went wrong/weird, fall back to hard-coded.
-            return "firefox"
+            return "qwant"
         }
         return string
     }()

@@ -93,6 +93,10 @@ class BrowserCoordinator: BaseCoordinator,
         }
     }
 
+    func reloadIfPossible() {
+        browserViewController.tabManager.selectedTab?.reloadPage()
+    }
+
     // MARK: - BrowserDelegate
 
     func showHomepage(inline: Bool,

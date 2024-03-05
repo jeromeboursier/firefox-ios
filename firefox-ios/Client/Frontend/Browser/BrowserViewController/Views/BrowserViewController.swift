@@ -2993,7 +2993,8 @@ extension BrowserViewController: UIAdaptivePresentationControllerDelegate {
         for controller: UIPresentationController,
         traitCollection: UITraitCollection
     ) -> UIModalPresentationStyle {
-        if controller.presentedViewController is QwantIntroViewController {
+        if controller.presentedViewController is QwantIntroViewController ||
+            controller.presentedViewController is QwantDefaultBrowserOnboardingViewController {
             if topTabsVisible {
                 return .formSheet
             } else {
@@ -3004,7 +3005,8 @@ extension BrowserViewController: UIAdaptivePresentationControllerDelegate {
     }
 
     func presentationControllerShouldDismiss(_ presentationController: UIPresentationController) -> Bool {
-        if presentationController.presentedViewController is QwantIntroViewController {
+        if presentationController.presentedViewController is QwantIntroViewController ||
+            presentationController.presentedViewController is QwantDefaultBrowserOnboardingViewController {
             return false
         }
         return true

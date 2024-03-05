@@ -108,7 +108,7 @@ class BrowserViewController: UIViewController,
 
     let profile: Profile
     let tabManager: TabManager
-    let ratingPromptManager: RatingPromptManager
+    let ratingPromptManager: QwantRatingPromptManager
     lazy var isTabTrayRefactorEnabled: Bool = TabTrayFlagManager.isRefactorEnabled
     lazy var isToolbarRefactorEnabled: Bool = ToolbarFlagManager.isRefactorEnabled
     private var browserViewControllerState: BrowserViewControllerState?
@@ -221,7 +221,7 @@ class BrowserViewController: UIViewController,
         tabManager: TabManager,
         themeManager: ThemeManager = AppContainer.shared.resolve(),
         notificationCenter: NotificationProtocol = NotificationCenter.default,
-        ratingPromptManager: RatingPromptManager = AppContainer.shared.resolve(),
+        ratingPromptManager: QwantRatingPromptManager = AppContainer.shared.resolve(),
         downloadQueue: DownloadQueue = AppContainer.shared.resolve(),
         logger: Logger = DefaultLogger.shared,
         appAuthenticator: AppAuthenticationProtocol = AppAuthenticator()

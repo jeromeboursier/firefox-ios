@@ -16,39 +16,43 @@ class EnhancedTrackingProtectionCoordinator: BaseCoordinator,
                                              EnhancedTrackingProtectionMenuDelegate {
     private let profile: Profile
     private let tabManager: TabManager
-    private let enhancedTrackingProtectionMenuVC: EnhancedTrackingProtectionMenuVC
+    private let themeManager: ThemeManager
+    private let enhancedTrackingProtectionMenuVC: ThemedNavigationController
     weak var parentCoordinator: EnhancedTrackingProtectionCoordinatorDelegate?
+    private var windowUUID: WindowUUID { return tabManager.windowUUID }
 
     init(router: Router,
          profile: Profile = AppContainer.shared.resolve(),
-         tabManager: TabManager
+         tabManager: TabManager,
+         themeManager: ThemeManager = AppContainer.shared.resolve()
     ) {
+        let windowUUID = tabManager.windowUUID
         let tab = tabManager.selectedTab
-        let url = tab?.url ?? URL(fileURLWithPath: "")
-        let displayTitle = tab?.displayTitle ?? ""
-        let contentBlockerStatus = tab?.contentBlocker?.status ?? .blocking
-        let connectionSecure = tab?.webView?.hasOnlySecureContent ?? true
-        let etpViewModel = EnhancedTrackingProtectionMenuVM(
-            url: url,
-            displayTitle: displayTitle,
-            connectionSecure: connectionSecure,
-            globalETPIsEnabled: FirefoxTabContentBlocker.isTrackingProtectionEnabled(prefs: profile.prefs),
-            contentBlockerStatus: contentBlockerStatus)
+        let etpViewModel = QwantVIPMenuVM(
+            windowUUID: windowUUID,
+            tab: tab ?? Tab(profile: profile, configuration: WKWebViewConfiguration(), windowUUID: windowUUID),
+            profile: profile,
+            tabManager: tabManager,
+            theme: themeManager.currentTheme(for: windowUUID))
+        let controller = QwantVIPMenuVC(viewModel: etpViewModel, windowUUID: windowUUID)
+        etpViewModel.mailHelper.mailComposeDelegate = controller
 
-        self.enhancedTrackingProtectionMenuVC = EnhancedTrackingProtectionMenuVC(viewModel: etpViewModel,
-                                                                                 windowUUID: tabManager.windowUUID)
+        self.enhancedTrackingProtectionMenuVC = ThemedNavigationController(rootViewController: controller,
+                                                                           windowUUID: windowUUID)
         self.profile = profile
         self.tabManager = tabManager
+        self.themeManager = themeManager
         super.init(router: router)
-        enhancedTrackingProtectionMenuVC.enhancedTrackingProtectionMenuDelegate = self
+
+        controller.enhancedTrackingProtectionMenuDelegate = self
     }
 
     func start(sourceView: UIView) {
         if UIDevice.current.userInterfaceIdiom == .phone {
-            enhancedTrackingProtectionMenuVC.modalPresentationStyle = .custom
+            enhancedTrackingProtectionMenuVC.modalPresentationStyle = .pageSheet
             enhancedTrackingProtectionMenuVC.transitioningDelegate = self
         } else {
-            enhancedTrackingProtectionMenuVC.asPopover = true
+            (enhancedTrackingProtectionMenuVC.viewControllers.first as? QwantVIPMenuVC)?.asPopover = true
             enhancedTrackingProtectionMenuVC.modalPresentationStyle = .popover
             enhancedTrackingProtectionMenuVC.popoverPresentationController?.sourceView = sourceView
             enhancedTrackingProtectionMenuVC.popoverPresentationController?.permittedArrowDirections = .up

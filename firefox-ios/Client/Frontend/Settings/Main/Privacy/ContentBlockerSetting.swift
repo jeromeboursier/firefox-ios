@@ -42,7 +42,7 @@ class ContentBlockerSetting: Setting {
         let theme = settings.currentTheme()
         super.init(
             title: NSAttributedString(
-                string: .SettingsTrackingProtectionSectionName,
+                string: .QwantVIP.GlobalProtection,
                 attributes: [
                     NSAttributedString.Key.foregroundColor: theme.colors.textPrimary
                 ]

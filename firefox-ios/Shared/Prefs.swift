@@ -177,6 +177,10 @@ public struct PrefsKeys {
     public static let splashScreenShownKey = "splashScreenShownKey"
 
     public static let QwantVIPStatisticsDeactivated = "HasDeactivatedQwantVIPStatistics"
+    public static let QwantIsFirstRun = "QwantIsFirstRun"
+    public static let QwantCampaign = "QwantCampaign"
+    public static let QwantCampaignTimestamp = "QwantCampaignTimestamp"
+    public static let QwantHasBeenOpenedViaTheWidget = "QwantHasBeenOpenedViaTheWidget"
 }
 
 public protocol Prefs {

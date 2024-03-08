@@ -107,6 +107,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Configure the route with the latest browsing state.
         guard let url = URLContexts.first?.url else { return }
         handleOpenURL(url)
+
+        if UserDefaults.standard.bool(forKey: PrefsKeys.QwantHasBeenOpenedViaTheWidget) {
+            profile.prefs.setBool(true, forKey: PrefsKeys.QwantHasBeenOpenedViaTheWidget)
+            UserDefaults.standard.setValue(nil, forKey: PrefsKeys.QwantHasBeenOpenedViaTheWidget)
+        }
     }
 
     // MARK: - Continuing User Activities

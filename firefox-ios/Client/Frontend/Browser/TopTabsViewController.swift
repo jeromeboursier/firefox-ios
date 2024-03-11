@@ -179,7 +179,6 @@ class TopTabsViewController: UIViewController, Themeable, Notifiable {
         view.backgroundColor = currentTheme.colors.layer3
         tabsButton.applyTheme(theme: currentTheme)
         privateModeButton.applyTheme(theme: currentTheme)
-        newTab.tintColor = currentTheme.colors.iconPrimary
         collectionView.backgroundColor = view.backgroundColor
         collectionView.reloadData()
         topTabDisplayManager.refreshStore()
@@ -213,6 +212,7 @@ class TopTabsViewController: UIViewController, Themeable, Notifiable {
                                                createTabOnEmptyPrivateMode: true,
                                                shouldSelectMostRecentTab: true)
         self.privateModeButton.setSelected(topTabDisplayManager.isPrivate, animated: true)
+        applyUIMode(isPrivate: topTabDisplayManager.isPrivate, theme: themeManager.currentTheme(for: windowUUID))
     }
 
     func scrollToCurrentTab(_ animated: Bool = true, centerCell: Bool = false) {
@@ -347,6 +347,8 @@ extension TopTabsViewController: PrivateModeUI {
         // TODO: [FXIOS-8907] Ideally we shouldn't create tabs as a side-effect of UI theme updates. Investigate refactor.
         topTabDisplayManager.togglePrivateMode(isOn: isPrivate, createTabOnEmptyPrivateMode: true)
 
+        tabsButton.applyUIMode(isPrivate: isPrivate, theme: theme)
+        newTab.tintColor = theme.colors.omnibar_tintColor(isPrivate)
         privateModeButton.applyTheme(theme: theme)
         privateModeButton.applyUIMode(isPrivate: topTabDisplayManager.isPrivate, theme: theme)
     }

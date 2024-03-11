@@ -387,10 +387,14 @@ extension BrowserViewController: URLBarDelegate {
 
     func submitSearchText(_ text: String, forTab tab: Tab) {
         guard let engine = profile.searchEngines.defaultEngine,
-              let searchURL = engine.searchURLForQuery(text)
+              var searchURL = engine.searchURLForQuery(text)
         else {
             DefaultLogger.shared.log("Error handling URL entry: \"\(text)\".", level: .warning, category: .tabs)
             return
+        }
+
+        if let currentQwantTab = tab.url?.extractQwantTab() {
+            searchURL = searchURL.appendingQwantTab(value: currentQwantTab) ?? searchURL
         }
 
         let conversionMetrics = UserConversionMetrics()
@@ -428,7 +432,8 @@ extension BrowserViewController: URLBarDelegate {
             showEmbeddedHomepage(inline: false, isPrivate: tabManager.selectedTab?.isPrivate ?? false)
         }
 
-        urlBar.applyTheme(theme: currentTheme())
+        let isPrivate = tabManager.selectedTab?.isPrivate ?? false
+        urlBar.applyUIMode(isPrivate: isPrivate, theme: currentTheme())
     }
 
     func urlBar(_ urlBar: URLBarView, didLeaveOverlayModeForReason reason: URLBarLeaveOverlayModeReason) {
@@ -444,10 +449,17 @@ extension BrowserViewController: URLBarDelegate {
         destroySearchController()
         updateInContentHomePanel(tabManager.selectedTab?.url as URL?)
 
-        urlBar.applyTheme(theme: currentTheme())
+        let isPrivate = tabManager.selectedTab?.isPrivate ?? false
+        urlBar.applyUIMode(isPrivate: isPrivate, theme: currentTheme())
     }
 
     func urlBarDidBeginDragInteraction(_ urlBar: URLBarView) {
         dismissVisibleMenus()
+    }
+
+    func urlBarDidTapQwantIcon(_ urlBar: URLBarView) {
+        leaveOverlayModeIfPossible()
+        guard let currentTab = tabManager.selectedTab else { return }
+        self.submitSearchText("", forTab: currentTab)
     }
 }

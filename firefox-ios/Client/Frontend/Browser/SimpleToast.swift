@@ -8,7 +8,7 @@ import Shared
 
 struct SimpleToast: ThemeApplicable {
     private let toastLabel: UILabel = .build { label in
-        label.font = FXFontStyles.Bold.subheadline.scaledFont()
+        label.font = FXFontStyles.Regular.body.scaledFont()
         label.numberOfLines = 0
         label.textAlignment = .center
     }
@@ -41,8 +41,8 @@ struct SimpleToast: ThemeApplicable {
     }
 
     func applyTheme(theme: Theme) {
-        toastLabel.textColor = theme.colors.textInverted
-        toastLabel.backgroundColor = theme.colors.actionPrimary
+        toastLabel.textColor = theme.type == .dark ? .black : .white
+        toastLabel.backgroundColor = theme.type == .dark ? .white : .black
     }
 
     private func dismiss(_ toast: UIView) {

@@ -16,6 +16,16 @@ public extension URL {
         static let CLIENT_CONTEXT_WIDGET = "qwantwidget"
         static let CL_CONTEXT_KEY = "cl"
         static let SEARCH_KEY = "q"
+        static let TAB_KEY = "t"
+        static let TAB_DEFAULT_VALUE = "web"
+    }
+
+    var isQwantHPUrl: Bool {
+        return isQwantUrl && (qwantSearchTerm == nil || qwantSearchTerm?.isEmptyOrWhitespace() == true)
+    }
+
+    var isQwantSERPUrl: Bool {
+        return isQwantUrl && qwantSearchTerm?.isEmptyOrWhitespace() == false
     }
 
     var isQwantUrl: Bool {
@@ -125,6 +135,22 @@ public extension URL {
         return components?.url
     }
 
+    func appendingQwantTab(value: String) -> URL? {
+        // Ensure it's a qwant.com url
+        guard self.isQwantUrl && !self.isAntiscrapUrl else { return self }
+
+        var components = URLComponents(url: self, resolvingAgainstBaseURL: false)
+        var queryItems = components?.queryItems ?? []
+
+        // Re-append the current tab
+        queryItems = queryItems
+            .filter { $0.name != Constants.TAB_KEY }
+        + [URLQueryItem(name: Constants.TAB_KEY, value: value)]
+
+        components?.queryItems = queryItems
+        return components?.url
+    }
+
     fileprivate func extractQwantClIfNeeded(campaign: String?,
                                             isFirstRun: Bool?,
                                             completion: ((String) -> Void)?) {
@@ -147,6 +173,21 @@ public extension URL {
         // Finally save the value and the associated timestamp onto the prefs
         completion?(clValue)
     }
+
+    func extractQwantTab() -> String? {
+        // Ensure it's a qwant.com url
+        guard self.isQwantUrl && !self.isAntiscrapUrl else { return nil }
+
+        // Ensure there are query items
+        guard let items = URLComponents(url: self, resolvingAgainstBaseURL: false)?.queryItems else { return nil }
+
+        // Ensure t query params exists and is not empty
+        guard let tParam = items.first(where: { $0.name == Constants.TAB_KEY }),
+              let tValue = tParam.value, !tValue.isEmpty else { return nil }
+
+        // Finally return the value
+        return tValue
+    }
 }
 
 public extension WKWebView {
@@ -161,8 +202,23 @@ public extension WKWebView {
                     campaign: campaign)
         else { return }
 
+        print("[QWANT] reloading with \(urlWithContext)")
+
         self.stopLoading()
         self.load(URLRequest(url: urlWithContext))
+    }
+
+    func setQwantCookies() {
+        let omnibarCookie = HTTPCookie(properties: [
+            .domain: ".qwant.com",
+            .path: "/",
+            .name: "omnibar",
+            .value: "1",
+            .secure: "FALSE",
+            .expires: NSDate(timeIntervalSinceNow: 31_556_926)
+        ])!
+
+        configuration.websiteDataStore.httpCookieStore.setCookie(omnibarCookie)
     }
 }
 
@@ -181,6 +237,15 @@ public extension String {
             attributedStr.addAttributes([.font: UIFont.systemFont(ofSize: 15, weight: .bold)], range: cleanedRange)
         }
         return attributedStr
+    }
+
+    fileprivate func isEmptyOrWhitespace() -> Bool {
+        // Check empty string
+        if self.isEmpty {
+            return true
+        }
+        // Trim and check empty string
+        return self.trimmingCharacters(in: .whitespaces).isEmpty
     }
 }
 
@@ -202,5 +267,14 @@ public extension UIView {
         animation.duration = 0.1
         animation.values = [3.0, 0.0]
         layer.add(animation, forKey: "increaseAnimation")
+    }
+
+    func shouldUseiPadSetup(traitCollection: UITraitCollection? = nil) -> Bool {
+        let trait = traitCollection == nil ? self.traitCollection : traitCollection
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            return trait!.horizontalSizeClass != .compact
+        }
+
+        return false
     }
 }

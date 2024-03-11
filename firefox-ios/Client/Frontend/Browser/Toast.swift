@@ -93,6 +93,6 @@ class Toast: UIView, ThemeApplicable {
     }
 
     func applyTheme(theme: Theme) {
-        toastView.backgroundColor = theme.colors.actionPrimary
+        toastView.backgroundColor = theme.type == .dark ? .white : .black
     }
 }

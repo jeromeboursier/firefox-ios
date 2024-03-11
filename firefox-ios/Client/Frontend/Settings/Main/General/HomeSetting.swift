@@ -40,4 +40,6 @@ class HomeSetting: Setting {
     override func onClick(_ navigationController: UINavigationController?) {
         settingsDelegate?.pressedHome()
     }
+
+    override var hidden: Bool { return true }
 }

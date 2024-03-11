@@ -124,6 +124,7 @@ extension BrowserViewController: TabToolbarDelegate, PhotonActionSheetProtocol {
         // operating in an overlay mode (`urlBar.inOverlayMode`).
         dismissUrlBar()
         updateZoomPageBarVisibility(visible: false)
+        leaveOverlayModeIfPossible()
         tabManager.selectedTab?.goBack()
     }
 
@@ -137,6 +138,7 @@ extension BrowserViewController: TabToolbarDelegate, PhotonActionSheetProtocol {
         // operating in an overlay mode (`urlBar.inOverlayMode`).
         dismissUrlBar()
         updateZoomPageBarVisibility(visible: false)
+        leaveOverlayModeIfPossible()
         tabManager.selectedTab?.goForward()
     }
 
@@ -147,11 +149,17 @@ extension BrowserViewController: TabToolbarDelegate, PhotonActionSheetProtocol {
     private func handleTabToolBarDidLongPressForwardOrBack() {
         let generator = UIImpactFeedbackGenerator(style: .heavy)
         generator.impactOccurred()
+        leaveOverlayModeIfPossible()
         navigationHandler?.showBackForwardList()
     }
 
     func tabToolbarDidPressBookmarks(_ tabToolbar: TabToolbarProtocol, button: UIButton) {
+        leaveOverlayModeIfPossible()
         showLibrary(panel: .bookmarks)
+    }
+
+    func tabToolbarDidPressZap(_ tabToolbar: TabToolbarProtocol, button: UIButton) {
+        tabTrayDidZap(button)
     }
 
     func tabToolbarDidPressAddNewTab(_ tabToolbar: TabToolbarProtocol, button: UIButton) {

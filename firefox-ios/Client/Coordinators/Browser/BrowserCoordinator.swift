@@ -105,6 +105,8 @@ class BrowserCoordinator: BaseCoordinator,
                       libraryPanelDelegate: LibraryPanelDelegate,
                       statusBarScrollDelegate: StatusBarScrollDelegate,
                       overlayManager: OverlayModeManager) {
+        // Nope.
+        return
         let homepageController = getHomepage(inline: inline,
                                              toastContainer: toastContainer,
                                              homepanelDelegate: homepanelDelegate,
@@ -391,6 +393,7 @@ class BrowserCoordinator: BaseCoordinator,
     func didFinishSettings(from coordinator: SettingsCoordinator) {
         router.dismiss(animated: true, completion: nil)
         remove(child: coordinator)
+        browserViewController.donePresenting()
     }
 
     func openDebugTestTabs(count: Int) {

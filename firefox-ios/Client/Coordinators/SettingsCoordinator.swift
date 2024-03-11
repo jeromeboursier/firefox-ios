@@ -257,6 +257,13 @@ class SettingsCoordinator: BaseCoordinator,
         router.push(viewController)
     }
 
+    func pressedZap() {
+        let viewController = QwantZapSettingsTableViewController(windowUUID: windowUUID)
+        viewController.profile = profile
+        viewController.tabManager = tabManager
+        router.push(viewController)
+    }
+
     func pressedContentBlocker() {
         let viewController = QwantVIPSettingsViewController(windowUUID: windowUUID, prefs: profile.prefs)
         viewController.settingsDelegate = self

@@ -40,6 +40,7 @@ class TopTabsViewController: UIViewController, Themeable, Notifiable {
     var notificationCenter: NotificationProtocol
     var currentWindowUUID: UUID? { windowUUID }
     var windowUUID: WindowUUID { tabManager.windowUUID }
+    var qwantTracking: QwantTracking
 
     // MARK: - UI Elements
     lazy var collectionView: UICollectionView = {
@@ -105,11 +106,14 @@ class TopTabsViewController: UIViewController, Themeable, Notifiable {
     init(tabManager: TabManager,
          profile: Profile,
          themeManager: ThemeManager = AppContainer.shared.resolve(),
-         notificationCenter: NotificationProtocol = NotificationCenter.default) {
+         notificationCenter: NotificationProtocol = NotificationCenter.default,
+         qwantTracking: QwantTracking = AppContainer.shared.resolve()
+    ) {
         self.tabManager = tabManager
         self.profile = profile
         self.themeManager = themeManager
         self.notificationCenter = notificationCenter
+        self.qwantTracking = qwantTracking
         super.init(nibName: nil, bundle: nil)
         topTabDisplayManager = LegacyTabDisplayManager(collectionView: self.collectionView,
                                                        tabManager: self.tabManager,
@@ -337,6 +341,7 @@ extension TopTabsViewController: TabDisplayerDelegate {
 
 extension TopTabsViewController: TopTabCellDelegate {
     func tabCellDidClose(_ cell: UICollectionViewCell) {
+        qwantTracking.track(.closeTab(isPrivate: topTabDisplayManager.isPrivate))
         topTabDisplayManager.closeActionPerformed(forCell: cell)
         NotificationCenter.default.post(name: .TopTabsTabClosed, object: nil, userInfo: windowUUID.userInfo)
     }

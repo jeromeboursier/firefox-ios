@@ -12,6 +12,7 @@ class ThemedTableViewController: UITableViewController, Themeable {
     var themeObserver: NSObjectProtocol?
     let windowUUID: WindowUUID
     var currentWindowUUID: UUID? { return windowUUID }
+    var qwantTracking: QwantTracking
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -20,10 +21,13 @@ class ThemedTableViewController: UITableViewController, Themeable {
     init(style: UITableView.Style = .grouped,
          windowUUID: WindowUUID,
          themeManager: ThemeManager = AppContainer.shared.resolve(),
-         notificationCenter: NotificationProtocol = NotificationCenter.default) {
+         notificationCenter: NotificationProtocol = NotificationCenter.default,
+         qwantTracking: QwantTracking = AppContainer.shared.resolve()
+    ) {
         self.windowUUID = windowUUID
         self.themeManager = themeManager
         self.notificationCenter = notificationCenter
+        self.qwantTracking = qwantTracking
         super.init(style: style)
     }
 

@@ -37,6 +37,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return DefaultBackgroundTabLoader(tabQueue: (AppContainer.shared.resolve() as Profile).queue)
     }()
     private var isLoadingBackgroundTabs = false
+    lazy var qwantTracking = QwantTracking(prefs: profile.prefs)
 
     private var shutdownWebServer: DispatchSourceTimer?
     private var webServerUtil: WebServerUtil?
@@ -80,7 +81,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Then setup dependency container as it's needed for everything else
         DependencyHelper().bootstrapDependencies()
 
-        appLaunchUtil = AppLaunchUtil(profile: profile)
+        appLaunchUtil = AppLaunchUtil(profile: profile,
+                                      qwantTracking: qwantTracking)
         appLaunchUtil?.setUpPreLaunchDependencies()
 
         // Set up a web server that serves us static content.

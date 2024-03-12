@@ -38,6 +38,9 @@ class DependencyHelper {
         let themeManager: ThemeManager = appDelegate.themeManager
         AppContainer.shared.register(service: themeManager)
 
+        let qwantTracking: QwantTracking = appDelegate.qwantTracking
+        AppContainer.shared.register(service: qwantTracking)
+
         // Tell the container we are done registering
         AppContainer.shared.bootstrap()
     }

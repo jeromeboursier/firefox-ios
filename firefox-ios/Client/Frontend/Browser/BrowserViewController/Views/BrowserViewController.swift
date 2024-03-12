@@ -112,6 +112,7 @@ class BrowserViewController: UIViewController,
     lazy var isTabTrayRefactorEnabled: Bool = TabTrayFlagManager.isRefactorEnabled
     lazy var isToolbarRefactorEnabled: Bool = ToolbarFlagManager.isRefactorEnabled
     private var browserViewControllerState: BrowserViewControllerState?
+    var qwantTracking: QwantTracking
 
     // Header stack view can contain the top url bar, top reader mode, top ZoomPageBar
     var header: BaseAlphaStackView = .build { _ in }
@@ -245,7 +246,8 @@ class BrowserViewController: UIViewController,
         ratingPromptManager: QwantRatingPromptManager = AppContainer.shared.resolve(),
         downloadQueue: DownloadQueue = AppContainer.shared.resolve(),
         logger: Logger = DefaultLogger.shared,
-        appAuthenticator: AppAuthenticationProtocol = AppAuthenticator()
+        appAuthenticator: AppAuthenticationProtocol = AppAuthenticator(),
+        qwantTracking: QwantTracking = AppContainer.shared.resolve()
     ) {
         self.profile = profile
         self.tabManager = tabManager
@@ -272,6 +274,7 @@ class BrowserViewController: UIViewController,
         )
         self.dataClearanceContextHintVC = ContextualHintViewController(with: dataClearanceViewProvider,
                                                                        windowUUID: windowUUID)
+        self.qwantTracking = qwantTracking
         super.init(nibName: nil, bundle: nil)
         didInit()
     }
@@ -2599,7 +2602,7 @@ extension BrowserViewController: LegacyTabDelegate {
         beginObserving(webView: webView)
         self.scrollController.beginObserving(scrollView: webView.scrollView)
         webView.uiDelegate = self
-        webView.setQwantCookies()
+        webView.setQwantCookies(tracking: profile.prefs.boolForKey(AppConstants.prefQwantTracking) ?? true)
 
         let readerMode = ReaderMode(tab: tab)
         readerMode.delegate = self

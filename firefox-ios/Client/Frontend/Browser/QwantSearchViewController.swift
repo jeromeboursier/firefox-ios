@@ -51,7 +51,7 @@ class QwantSearchViewController: UIViewController,
 
     private let profile: Profile
     private var tabManager: TabManager
-    
+
     private let windowUUID: WindowUUID
     var currentWindowUUID: UUID? { windowUUID }
 
@@ -130,6 +130,7 @@ class QwantSearchViewController: UIViewController,
         self.notificationCenter = notificationCenter
         self.themeManager = themeManager
         self.searchTelemetry = nil
+        self.qwantTracking = qwantTracking
 
         super.init(nibName: nil, bundle: nil)
         listenForThemeChange(view)

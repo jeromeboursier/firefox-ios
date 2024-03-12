@@ -36,6 +36,7 @@ class LegacyTabTrayViewController: UIViewController, Themeable, TabTrayControlle
     var nimbus: FxNimbus
     var themeManager: ThemeManager
     var themeObserver: NSObjectProtocol?
+    var qwantTracking: QwantTracking
     weak var qrCodeNavigationHandler: QRCodeNavigationHandler?
     let windowUUID: WindowUUID
     var currentWindowUUID: UUID? { windowUUID }
@@ -185,7 +186,8 @@ class LegacyTabTrayViewController: UIViewController, Themeable, TabTrayControlle
          focusedSegment: TabTrayPanelType? = nil,
          themeManager: ThemeManager = AppContainer.shared.resolve(),
          and notificationCenter: NotificationProtocol = NotificationCenter.default,
-         with nimbus: FxNimbus = FxNimbus.shared
+         with nimbus: FxNimbus = FxNimbus.shared,
+         qwantTracking: QwantTracking = AppContainer.shared.resolve()
     ) {
         self.nimbus = nimbus
         self.notificationCenter = notificationCenter
@@ -197,7 +199,7 @@ class LegacyTabTrayViewController: UIViewController, Themeable, TabTrayControlle
                                                 tabManager: tabManager,
                                                 overlayManager: overlayManager,
                                                 segmentToFocus: focusedSegment)
-
+        self.qwantTracking = qwantTracking
         super.init(nibName: nil, bundle: nil)
 
         setupNotifications(forObserver: self,
@@ -591,6 +593,7 @@ extension LegacyTabTrayViewController {
 
     @objc
     func didTapDeleteTabs(_ sender: UIBarButtonItem) {
+        qwantTracking.track(.closeAllTabs(isIntention: true, isPrivate: viewModel.segmentToFocus == .privateTabs))
         viewModel.didTapDeleteTab(sender)
     }
 

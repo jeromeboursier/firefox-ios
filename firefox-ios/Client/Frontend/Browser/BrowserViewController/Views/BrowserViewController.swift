@@ -1377,7 +1377,8 @@ class BrowserViewController: UIViewController,
         let searchController = QwantSearchViewController(windowUUID: windowUUID,
                                                          profile: profile,
                                                          viewModel: searchViewModel,
-                                                         tabManager: tabManager)
+                                                         tabManager: tabManager,
+                                                         qwantTracking: qwantTracking)
         searchController.searchDelegate = self
 
         let searchLoader = SearchLoader(profile: profile, urlBar: urlBar)
@@ -2603,6 +2604,10 @@ extension BrowserViewController: LegacyTabDelegate {
         self.scrollController.beginObserving(scrollView: webView.scrollView)
         webView.uiDelegate = self
         webView.setQwantCookies(tracking: profile.prefs.boolForKey(AppConstants.prefQwantTracking) ?? true)
+        webView.abTestGroupLookup { [weak self] abTest in
+            guard let abTest, let self else { return }
+            self.profile.prefs.setInt(Int32(abTest), forKey: PrefsKeys.QwantABTestGroup)
+        }
 
         let readerMode = ReaderMode(tab: tab)
         readerMode.delegate = self
